@@ -1,0 +1,278 @@
+\chapter{技术研发计划}
+
+\section{核心技术研发目标}
+
+本项目的技术目标可概括为三个关键词：\hlgreen{轻量化（Lightweight）、端侧可用（On-device）、精准落地（Precise）}。具体研发目标如下：
+
+\begin{enumerate}[leftmargin=1.6em]
+  \item 构建覆盖主粮与经济作物、100 类以上病虫害的轻量化图像识别模型，端侧离线推理，单张图片识别耗时 $<1$ 秒；
+  \item 模型体积压缩至 10 MB 以内，适配中低端智能手机；
+  \item 建立「病—药—量—时」结构化防治知识库与多属性决策匹配引擎；
+  \item 构建基于 LBS 与气象、历史发病数据的病虫害时序预警模型，实现未来 7--14 天发生概率预测。
+\end{enumerate}
+
+\section{数据采集与模型迭代计划}
+
+\subsection{公开数据集选用}
+
+本项目优先选用以下\hlgreen{权威公开数据集}作为模型预训练与基线评测的数据基础：
+
+\begin{table}[H]
+  \centering
+  \small
+  \renewcommand{\arraystretch}{1.3}
+  \caption{核心公开病虫害图像数据集}
+  \begin{tabular}{p{3.6cm}ccc p{5.2cm}}
+    \toprule
+    数据集 & 图像数 & 类别数 & 作物数 & 特点 \\
+    \midrule
+    PlantVillage & 54\,303 & 38 & 14 & 实验室受控背景，类别均衡，适合预训练 \\
+    PlantDoc & 2\,598 & 30 & 13 & 田间真实背景，光照/遮挡复杂，适合迁移微调 \\
+    IP102 & 75\,000+ & 102 & 8 & 害虫大类，含虫态差异，长尾分布，极具挑战 \\
+    AI Challenger 2018 & 36\,258 & 61 & 27 & 中文标注，覆盖国内主粮作物，贴近本土场景 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{自有田间数据建设}
+
+公开数据集以实验室或特定产区为主，与国内小农户的真实田间场景存在分布差异。因此，本项目同步建设\hlgold{自有田间数据采集体系}：依托县域试点与线下渠道，按「作物—区域—季节—病虫害」四维框架采集田间实拍图像，经人工与半自动标注形成领域专有数据集，持续反哺模型微调与迭代。
+
+\subsection{模型迭代与评测}
+
+采用「预训练 + 领域微调 + 持续学习」的迭代范式，以 Top-1 / Top-5 准确率、混淆矩阵、推理延迟等指标量化评估。
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.60\linewidth]{confusion_matrix.png}
+  \caption{病虫害识别混淆矩阵示例（验证集，\%）}
+\end{figure}
+
+\section{轻量化技术优化路线}
+
+从「云端大模型」到「端侧小模型」的轻量化是技术落地关键。路线为：以云端高精度大模型为「教师」，通过\hlgreen{知识蒸馏}训练端侧「学生」小模型；再通过\hlgreen{INT8 量化}将浮点运算转为 8 位整数运算，进一步压缩体积、加速推理；并以\hlgreen{深度可分离卷积}作为端侧模型的骨干结构。
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.90\linewidth]{model_compress.png}
+  \caption{知识蒸馏与 INT8 量化对模型体积、精度与延迟的影响}
+\end{figure}
+
+\section{知识库更新与运营体系}
+
+构建「权威专家审校 + 数据驱动更新」的防治知识库运营体系：初期由植保专家构建「病—药—量—时」结构化知识；上线后结合用户防治反馈、当地用药登记目录与药效数据，动态更新方案库，确保建议的合规性与有效性。
+
+\section{数据安全与隐私保护方案}
+
+\begin{enumerate}[leftmargin=1.6em]
+  \item \hlgreen{端侧优先}：识别推理在手机端本地完成，原始照片默认不上传云端；
+  \item \hlgreen{联邦学习}：需要参与训练的拍照数据，以联邦学习方式在本地训练、仅上传模型梯度，实现「数据不动、模型动」；
+  \item \hlgreen{合规管理}：严格遵循《数据安全法》《个人信息保护法》，建立分级分类与脱敏机制，农户数据仅用于服务改善，绝不对外出售。
+\end{enumerate}
+
+% ============================================================
+\section{核心算法与数学建模}
+
+\subsection{病虫害图像识别：轻量化深度可分离卷积神经网络}
+
+\textbf{业务对应}：拍照识别功能，实现手机端离线轻量化部署，完成病虫害图像分类与置信度输出。
+
+\paragraph{(1) 标准卷积运算}
+卷积神经网络（CNN）通过卷积核提取图像中病斑、虫体的纹理、形状、颜色特征：
+\begin{equation}
+  G(i,j) = (I * K)(i,j) = \sum_{m=1}^{M}\sum_{n=1}^{N} I(i+m-1,\, j+n-1) \cdot K(m,n),
+\end{equation}
+其中 $I$ 为输入图像像素矩阵，$K$ 为卷积核，$M\times N$ 为卷积核尺寸，$G(i,j)$ 为输出特征图对应位置的像素值。
+
+\paragraph{(2) 深度可分离卷积（轻量化核心）}
+为适配手机端低算力场景，采用深度可分离卷积替代标准卷积，将空间卷积与通道卷积拆分，参数量可降低 8--9 倍：
+\begin{equation}
+  \text{参数量占比} = \frac{D_K \cdot D_K \cdot M + 1 \cdot 1 \cdot M \cdot N}{D_K \cdot D_K \cdot M \cdot N}
+  = \frac{1}{N} + \frac{1}{D_K^{2}},
+\end{equation}
+其中 $D_K$ 为卷积核尺寸，$M$ 为输入通道数，$N$ 为输出通道数。该结构在精度损失小于 3\% 的前提下大幅压缩模型体积。
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.92\linewidth]{conv_param_compare.png}
+  \caption{标准卷积与深度可分离卷积参数量对比}
+\end{figure}
+
+\paragraph{(3) Softmax 分类与置信度输出}
+输出层通过 Softmax 函数将全连接层输出映射为各类病虫害的概率，对应识别结果的置信度：
+\begin{equation}
+  p_k = \frac{e^{z_k}}{\sum_{i=1}^{C} e^{z_i}}, \quad k=1,2,\dots,C,
+\end{equation}
+其中 $C$ 为病虫害类别总数，$z_k$ 为全连接层第 $k$ 类的输出值，$p_k\in[0,1]$ 为第 $k$ 类病虫害的识别置信度。
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.62\linewidth]{softmax_confidence.png}
+  \caption{Softmax 识别置信度输出示例（Top-5）}
+\end{figure}
+
+\paragraph{(4) 模型训练损失函数（交叉熵损失）}
+训练阶段通过最小化预测分布与真实标签分布的交叉熵损失来优化模型：
+\begin{equation}
+  Loss = -\frac{1}{B}\sum_{b=1}^{B}\sum_{k=1}^{C} y_{b,k} \log(p_{b,k}),
+\end{equation}
+其中 $B$ 为批次样本量，$y_{b,k}$ 为真实标签（one-hot 编码），$p_{b,k}$ 为模型预测概率。
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.64\linewidth]{training_loss.png}
+  \caption{模型训练损失收敛曲线（含早停点）}
+\end{figure}
+
+\subsection{病虫害发生时序预警：LSTM 长短期记忆网络}
+
+\textbf{业务对应}：预防推送功能，基于本地历史气象与病虫害发生数据，预测未来一段时间的病虫害发生概率，支撑窗口期预警。
+
+LSTM 通过门控机制解决时序数据的长期依赖问题，核心单元公式如下：
+
+\textbf{遗忘门}——控制上一时刻细胞状态的保留程度：
+\begin{equation}
+  f_t = \sigma\!\left(W_f \cdot [h_{t-1}, x_t] + b_f\right);
+\end{equation}
+
+\textbf{输入门}——控制当前时刻新信息写入细胞状态的程度：
+\begin{equation}
+  i_t = \sigma\!\left(W_i \cdot [h_{t-1}, x_t] + b_i\right),\qquad
+  \tilde{C}_t = \tanh\!\left(W_C \cdot [h_{t-1}, x_t] + b_C\right);
+\end{equation}
+
+\textbf{细胞状态更新}——融合历史信息与当前新信息：
+\begin{equation}
+  C_t = f_t \odot C_{t-1} + i_t \odot \tilde{C}_t;
+\end{equation}
+
+\textbf{输出门与隐状态}——基于细胞状态输出当前时刻的预测结果：
+\begin{equation}
+  o_t = \sigma\!\left(W_o \cdot [h_{t-1}, x_t] + b_o\right),\qquad
+  h_t = o_t \odot \tanh(C_t).
+\end{equation}
+
+其中 $x_t$ 为 $t$ 时刻输入向量（当日平均温度、湿度、降雨量、历史发病率等特征），$h_{t-1}$、$C_{t-1}$ 分别为上一时刻的隐状态与细胞状态，$W_f,W_i,W_C,W_o$ 为权重矩阵，$b_f,b_i,b_C,b_o$ 为偏置项，$\sigma$ 为 Sigmoid 激活函数，$\odot$ 为哈达玛积（逐元素相乘）。
+
+\textbf{预测效果评估指标}：
+\begin{equation}
+  RMSE = \sqrt{\frac{1}{T}\sum_{t=1}^{T}(\hat{y}_t - y_t)^{2}},\qquad
+  MAE = \frac{1}{T}\sum_{t=1}^{T}\left|\hat{y}_t - y_t\right|,
+\end{equation}
+其中 $\hat{y}_t$ 为预测发病率，$y_t$ 为实际发病率，$T$ 为预测时序长度。
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.78\linewidth]{lstm_forecast.png}
+  \caption{LSTM 病虫害发生概率预测与预警触发示意}
+\end{figure}
+
+模型输入为过去 30 天本地气象与病虫害数据，输出为未来 7--14 天的病虫害发生概率，概率超过阈值即触发本地化预警推送。
+
+\subsection{防治方案智能匹配：加权多属性决策模型}
+
+\textbf{业务对应}：防治建议功能，识别病虫害后，从知识库中匹配最优用药方案，综合药效、成本、毒性、窗口期等多维度决策。
+
+\paragraph{(1) 属性值规范化（消除量纲影响）}
+对正向指标（如药效）与负向指标（如成本、毒性）分别做归一化：
+\begin{equation}
+  \text{正向指标：}\ r_{ij} = \frac{x_{ij} - \min(x_j)}{\max(x_j) - \min(x_j)},\qquad
+  \text{负向指标：}\ r_{ij} = \frac{\max(x_j) - x_{ij}}{\max(x_j) - \min(x_j)},
+\end{equation}
+其中 $x_{ij}$ 为第 $i$ 个方案第 $j$ 个属性的原始值，$r_{ij}\in[0,1]$ 为规范化后的值。
+
+\paragraph{(2) 熵权法客观赋权}
+结合农技专家经验与数据熵值计算各属性权重，避免主观偏差：
+\begin{equation}
+  e_j = -\frac{1}{\ln n}\sum_{i=1}^{n} p_{ij}\ln p_{ij},\qquad p_{ij} = \frac{r_{ij}}{\sum_{i=1}^{n} r_{ij}},
+\end{equation}
+\begin{equation}
+  w_j = \frac{1 - e_j}{\sum_{j=1}^{m}(1 - e_j)},
+\end{equation}
+其中 $e_j$ 为第 $j$ 个属性的信息熵，$w_j$ 为对应权重，满足 $\sum_{j=1}^{m} w_j = 1$。
+
+\paragraph{(3) 方案综合得分与排序}
+\begin{equation}
+  S_i = \sum_{j=1}^{m} w_j \cdot r_{ij}.
+\end{equation}
+按 $S_i$ 从高到低排序，输出 Top-3 最优防治方案，包含用药类型、用量、施用时机。
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.86\linewidth]{entropy_madm.png}
+  \caption{熵权法属性权重与防治方案综合得分 Top-3}
+\end{figure}
+
+% ============================================================
+\section{适配项目的补充算法推荐}
+
+结合本项目「轻量化、下沉市场、数据分散、强季节性」的特点，推荐以下四类算法补充技术栈。
+
+\subsection{图像识别增强类}
+
+\paragraph{YOLOv8-nano 目标检测算法}
+相比纯分类 CNN，YOLOv8-nano 可同时定位病斑/虫体在叶片上的位置，排除复杂背景（泥土、杂草）干扰，提升田间复杂场景识别准确率；nano 版本模型体积仅数 MB，适配手机端部署。
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.56\linewidth]{yolo_detection.png}
+  \caption{YOLOv8-nano 田间病斑目标检测示意}
+\end{figure}
+
+\paragraph{CBAM 卷积注意力机制}
+将通道注意力与空间注意力嵌入轻量化 CNN，使模型聚焦病斑、虫体区域、抑制无关背景，在不增加参数量的前提下提升识别精度 2\%--5\%。其通道注意力 $M_c$ 与空间注意力 $M_s$ 可表示为：
+\begin{equation}
+  M_c(F) = \sigma\!\big(\mathrm{MLP}(\mathrm{AvgPool}(F)) + \mathrm{MLP}(\mathrm{MaxPool}(F))\big),
+\end{equation}
+\begin{equation}
+  M_s(F) = \sigma\!\big(f^{7\times 7}([\mathrm{AvgPool}(F);\, \mathrm{MaxPool}(F)])\big),
+\end{equation}
+其中 $F$ 为输入特征图，$\sigma$ 为 Sigmoid 激活，$f^{7\times7}$ 为 $7\times7$ 卷积核。
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.92\linewidth]{cbam_attention.png}
+  \caption{CBAM 卷积注意力：聚焦病斑区域、抑制背景}
+\end{figure}
+
+\subsection{时序预测补充类}
+
+\paragraph{Facebook Prophet 季节性时序模型}
+病虫害发生具有强季节性、周期性，Prophet 对趋势项 $g(t)$、季节项 $s(t)$、节假日项 $h(t)$ 拟合能力强、对缺失数据不敏感，比 LSTM 更适合小样本县域级病虫害预测，部署更轻量：
+\begin{equation}
+  y(t) = g(t) + s(t) + h(t) + \varepsilon_t.
+\end{equation}
+
+\paragraph{GM(1,1) 灰色预测模型}
+针对偏远地区历史数据不足的场景，灰色模型仅需少量历史数据即可完成短期预测，作为 LSTM 的补充兜底方案。其一阶累加生成序列的白化微分方程为：
+\begin{equation}
+  \frac{dx^{(1)}}{dt} + a\, x^{(1)} = b,
+\end{equation}
+其中 $a$ 为发展系数，$b$ 为灰色作用量。
+
+\subsection{模型轻量化优化类}
+
+\paragraph{知识蒸馏}
+用云端高精度大模型（教师模型）指导端侧小模型（学生模型）训练，在精度损失小于 2\% 的前提下将模型体积压缩至原来的约 1/10。其损失函数为：
+\begin{equation}
+  \mathcal{L} = \alpha\,\mathcal{L}_{\mathrm{CE}}(y,\, S) + (1-\alpha)\, T^{2}\,\mathrm{KL}\!\left(\mathrm{softmax}\!\left(\tfrac{z_T}{T}\right),\, \mathrm{softmax}\!\left(\tfrac{z_S}{T}\right)\right),
+\end{equation}
+其中 $z_T,z_S$ 为教师、学生模型的 logits，$T$ 为温度系数，$\alpha$ 为权衡系数。
+
+\paragraph{INT8 量化}
+将模型浮点运算转为 8 位整数运算，推理速度提升 2--3 倍、算力需求降低约 75\%，适配中低端智能手机。量化映射为：
+\begin{equation}
+  q = \mathrm{round}\!\left(\frac{x}{\Delta}\right) + z,\qquad \Delta = \frac{x_{\max} - x_{\min}}{2^{8} - 1},
+\end{equation}
+其中 $\Delta$ 为量化步长（scale），$z$ 为零点（zero-point）。
+
+\subsection{数据隐私与泛化类}
+
+\paragraph{联邦学习}
+农户拍照数据无需上传云端，在本地参与模型训练、仅上传模型梯度，既保护农户数据隐私，又能汇聚不同地区、不同作物的数据提升模型泛化性。典型联邦平均（FedAvg）算法为：
+\begin{equation}
+  w^{t+1} = \sum_{k=1}^{K} \frac{n_k}{n}\, w_k^{t},
+\end{equation}
+其中 $w_k^{t}$ 为第 $k$ 个客户端本地更新后的模型参数，$n_k$ 为其本地样本量，$n=\sum_k n_k$。
+
+综上所述，本项目形成「\hlgreen{轻量化 CNN 做识别、LSTM/Prophet 做预警、熵权多属性决策做方案匹配、知识蒸馏与量化做端侧部署、联邦学习保隐私促泛化}」的完整算法技术栈，具备清晰的技术壁垒与落地可行性。

@@ -1,0 +1,23 @@
+{
+  "seed": 42,
+  "cases": 10000,
+  "planner": "fixed",
+  "weights": {
+    "truncate": 1,
+    "bitflip": 1,
+    "length": 1,
+    "flags": 1,
+    "checksum": 1,
+    "random": 1
+  },
+  "operator_counts": {
+    "truncate": 1648,
+    "bitflip": 1743,
+    "length": 1647,
+    "flags": 1683,
+    "checksum": 1578,
+    "random": 1701
+  },
+  "crashes": [],
+  "elapsed_seconds": 0.156
+}

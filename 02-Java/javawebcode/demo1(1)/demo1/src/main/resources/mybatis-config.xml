@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3307/USER?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Shanghai"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper class="com.chapter01.UserMapper"/>
+        <mapper class="com.chapter01.UserMapperAnnotation"/>
+        <mapper class="com.chapter01.EmpMapper"/>
+        <mapper class="com.chapter01.ProductMapper"/>
+        <mapper class="com.chapter01.CustomerMapper"/>
+        <mapper class="com.chapter01.EmpCustomerMapper"/>
+        <mapper class="com.chapter01.CustomerProductMapper"/>
+        <mapper class="com.chapter03.SimpleChainMapper"/>
+        <mapper class="com.chapter03.SupplierMapper"/>
+    </mappers>
+
+</configuration>

@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<script src="../../node_modules/echarts/dist/echarts.min.js"></script>
+<style>html,body{margin:0;padding:0;background:#ffffff;} #chart{width:100vw;height:100vh;}</style>
+</head><body><div id="chart"></div>
+<script>
+var ch = echarts.init(document.getElementById('chart'));
+ch.setOption({"textStyle": {"fontFamily": "Microsoft YaHei, 'PingFang SC', sans-serif", "color": "#37474f"}, "color": ["#2e7d32", "#f9a825", "#1e88e5", "#ff7043", "#66bb6a", "#26c6da", "#e53935", "#90a4ae"], "title": {"text": "目标用户作物结构", "left": "center", "top": 12, "textStyle": {"fontSize": 18}}, "tooltip": {"trigger": "item", "formatter": "{b}: {c}%"}, "legend": {"bottom": 10, "textStyle": {"fontSize": 13}}, "series": [{"type": "pie", "radius": ["42%", "66%"], "center": ["50%", "52%"], "data": [{"name": "水稻", "value": 34}, {"name": "小麦", "value": 22}, {"name": "玉米", "value": 18}, {"name": "果蔬", "value": 20}, {"name": "其他", "value": 6}], "label": {"formatter": "{b}\n{c}%", "fontSize": 12}, "itemStyle": {"borderRadius": 6, "borderColor": "#fff", "borderWidth": 2}, "emphasis": {"scaleSize": 6}}], "graphic": [{"type": "text", "left": "center", "top": "46%", "style": {"text": "小农户", "fontSize": 16, "fontWeight": "bold", "fill": "#37474f", "textAlign": "center"}}]});
+</script></body></html>

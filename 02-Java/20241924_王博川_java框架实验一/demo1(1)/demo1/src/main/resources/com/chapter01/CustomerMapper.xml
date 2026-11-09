@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chapter01.CustomerMapper">
+
+    <select id="findAll" resultType="com.entity.Customer">
+        SELECT * FROM customer
+    </select>
+
+    <select id="findById" parameterType="int" resultType="com.entity.Customer">
+        SELECT * FROM customer WHERE id = #{id}
+    </select>
+
+    <insert id="addCustomer" parameterType="com.entity.Customer"
+            useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO customer(name, phone, email, address, level)
+        VALUES(#{name}, #{phone}, #{email}, #{address}, #{level})
+    </insert>
+
+    <update id="updateCustomer" parameterType="com.entity.Customer">
+        UPDATE customer SET name = #{name}, phone = #{phone}, email = #{email},
+                            address = #{address}, level = #{level}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteCustomer" parameterType="int">
+        DELETE FROM customer WHERE id = #{id}
+    </delete>
+
+    <select id="findByNameLike" parameterType="string" resultType="com.entity.Customer">
+        SELECT * FROM customer WHERE name LIKE CONCAT('%', #{value}, '%')
+    </select>
+
+</mapper>

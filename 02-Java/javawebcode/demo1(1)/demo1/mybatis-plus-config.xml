@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!--
+    MyBatis-Plus 配置文件
+
+    说明：
+      · 本文件使用 MyBatis-Plus 自己的 MybatisXMLConfigBuilder 解析
+      · 全局的 db-config（logic-delete-field、id-type 等）也可以在 XML 中配置
+        但 MybatisXMLConfigBuilder 只解析原生 MyBatis 标签，MP 扩展标签
+        （如 <globalConfig>）不会被自动解析，需要通过 GlobalConfigUtils 手动注入
+      · 本项目为了让每个知识点更清晰，统一用实体类注解单独指定
+
+    插件注册位置：com.chapterMybatisPlus.config.MybatisPlusConfig
+    MetaObjectHandler 注册位置：StudentTest.init() 中的 GlobalConfigUtils.setGlobalConfig()
+-->
+<configuration>
+
+    <properties resource="common/db.properties"/>
+
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="cacheEnabled" value="false"/>
+    </settings>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <package name="com.chapterMybatisPlus.mapper"/>
+    </mappers>
+
+</configuration>

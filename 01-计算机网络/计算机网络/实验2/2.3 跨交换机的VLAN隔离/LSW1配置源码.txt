@@ -1,0 +1,45 @@
+（1）初始配置：
+<huawei>system-view
+[huawei]sysname LSW1
+[LSW1]interface vlan 1 
+[LSW1-Vlanif1]ip address 192.168.1.1 24    //配置管理IP
+[LSW1-Vlanif1]quit
+//telnet远程登录信息配置（aaa认证方式）
+[LSW1]telnet server enable       //启用telnet远程登录服务
+[LSW1]user-interface vty 0 4     //进入远程登录信息配置模式
+[LSW1-ui-vty0-4]authentication-mode aaa   //设置认证模式为aaa认证
+[LSW1-ui-vty0-4]protocol inbound telnet   //配置允许远程登录的协议
+[LSW1-ui-vty0-4]quit
+[LSW1]aaa             //开启aaa认证方式
+[LSW1-aaa]local-user user01 password cipher huawei123 //设置用户user01密码为huawei123
+[LSW1-aaa]local-user user01 privilege level 15   //配置用户user01管理等级为3
+[LSW1-aaa]local-user user01 service-type telnet  //为用户user01开启telnet服务类型
+[LSW1-aaa]quit
+（2）划VLAN，归端口：
+//划VLAN
+[LSW1]vlan batch 10 20 60 100
+
+//归端口
+[LSW1]interface g0/0/2
+[LSW1-GigabitEthernet0/0/2]port link-type access  //设置该端口类型为Access
+[LSW1-GigabitEthernet0/0/2]port default vlan 100  //将该端口划归到VLAN100
+[LSW1-GigabitEthernet0/0/2]quit
+[LSW1]interface g0/0/3
+[LSW1-GigabitEthernet0/0/3]port link-type trunk   //设置该端口类型为Trunk
+[LSW1-GigabitEthernet0/0/3]port trunk allow-pass vlan 10 20  //将该端口划归到trunk
+[LSW1-GigabitEthernet0/0/3]quit
+[LSW1]interface g0/0/4
+[LSW1-GigabitEthernet0/0/4]port link-type access  //设置该端口类型为Access
+[LSW1-GigabitEthernet0/0/4]port default vlan 60  //将该端口划归到VLAN60
+[LSW1-GigabitEthernet0/0/4]quit
+[LSW1]interface g0/0/5
+[LSW1-GigabitEthernet0/0/5]port link-type access  //设置该端口类型为Access
+[LSW1-GigabitEthernet0/0/5]port default vlan 10  //将该端口划归到VLAN10
+[LSW1-GigabitEthernet0/0/5]quit
+[LSW1]interface g0/0/6
+[LSW1-GigabitEthernet0/0/6]port link-type access  //设置该端口类型为Access
+[LSW1-GigabitEthernet0/0/6]port default vlan 20  //将该端口划归到VLAN20
+[LSW1-GigabitEthernet0/0/6]quit
+[LSW1]display vlan
+[LSW1]quit
+<LSW1>save

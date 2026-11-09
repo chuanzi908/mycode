@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chapter01.EmpMapper">
+
+    <select id="findAll" resultType="com.entity.Emp">
+        SELECT * FROM emp
+    </select>
+
+    <select id="findById" parameterType="int" resultType="com.entity.Emp">
+        SELECT * FROM emp WHERE id = #{id}
+    </select>
+
+    <insert id="addEmp" parameterType="com.entity.Emp"
+            useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO emp(name, age, dept, salary, hire_date)
+        VALUES(#{name}, #{age}, #{dept}, #{salary}, #{hireDate})
+    </insert>
+
+    <update id="updateEmp" parameterType="com.entity.Emp">
+        UPDATE emp SET name = #{name}, age = #{age}, dept = #{dept},
+                       salary = #{salary}, hire_date = #{hireDate}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteEmp" parameterType="int">
+        DELETE FROM emp WHERE id = #{id}
+    </delete>
+
+    <select id="findByNameLike" parameterType="string" resultType="com.entity.Emp">
+        SELECT * FROM emp WHERE name LIKE CONCAT('%', #{value}, '%')
+    </select>
+
+</mapper>

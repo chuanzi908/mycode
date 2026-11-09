@@ -1,0 +1,109 @@
+% !TeX program = xelatex
+\documentclass[UTF8, a4paper, 11pt, oneside]{ctexrep}
+
+% ================= 宏包 =================
+\usepackage[a4paper, top=2.6cm, bottom=2.6cm, left=2.7cm, right=2.7cm]{geometry}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\usepackage{caption}
+\usepackage{float}
+
+% ================= 配色 =================
+\definecolor{maingreen}{HTML}{2e7d32}
+\definecolor{subgreen}{HTML}{66bb6a}
+\definecolor{gold}{HTML}{f9a825}
+\definecolor{accentred}{HTML}{e53935}
+\definecolor{grayline}{HTML}{90a4ae}
+\definecolor{lightgreen}{HTML}{e8f5e9}
+
+% ================= 标题格式 =================
+\ctexset{
+  chapter = {
+    name = {第,章},
+    number = \arabic{chapter},
+    format = {\centering\zihao{3}\bfseries\color{maingreen}},
+    nameformat = {},
+    titleformat = {},
+    beforeskip = 8pt,
+    afterskip = 22pt,
+    pagestyle = {fancy},
+  },
+  section = {
+    format = {\zihao{4}\bfseries\color{maingreen}},
+    beforeskip = 14pt,
+    afterskip = 8pt,
+  },
+  subsection = {
+    format = {\zihao{-4}\bfseries},
+    beforeskip = 10pt,
+    afterskip = 6pt,
+  },
+}
+
+% ================= 图表标题 =================
+\captionsetup{font={small}, labelfont={bf}, skip=6pt}
+
+% ================= 页眉页脚 =================
+\setlength{\headheight}{22pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{grayline} 基于AI图像识别的轻量化病虫害诊断与防治助手}
+\fancyhead[R]{\small\color{grayline} 商业计划书}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{maingreen}\leaders\hrule height \headrulewidth\hfill}}
+
+% ================= 便捷命令 =================
+\newcommand{\hlgreen}[1]{\textcolor{maingreen}{\bfseries #1}}
+\newcommand{\hlgold}[1]{\textcolor{gold}{\bfseries #1}}
+\newcommand{\hlred}[1]{\textcolor{accentred}{\bfseries #1}}
+
+\graphicspath{{figures/model/}{figures/web/}{figures/}}
+
+\begin{document}
+
+% ==================== 封面 ====================
+\begin{titlepage}
+  \centering
+  \vspace*{2.2cm}
+  {\color{maingreen}\rule{\linewidth}{2.5pt}}\\[0.6cm]
+  {\zihao{2}\bfseries 商\ 业\ 计\ 划\ 书}\\[1.0cm]
+  {\zihao{1}\bfseries\color{maingreen} 基于 AI 图像识别的\\[0.4em] 轻量化病虫害诊断与防治助手}\\[1.2cm]
+  {\zihao{3}\color{grayline} —— 拍照即诊断 · 诊断即给方案 · 精准即防治 ——}\\[2.0cm]
+  {\zihao{4}\bfseries 「慧农识病」项目组}\\[0.4cm]
+  {\zihao{-4}\color{grayline} （公司名称及注册信息此处可替换）}\\[1.6cm]
+  {\color{maingreen}\rule{\linewidth}{1.5pt}}\\[0.8cm]
+  {\zihao{4} 编制时间：2026 年 9 月}\\[0.3cm]
+  {\zihao{-4}\color{grayline} 版本号：V1.0 \quad 密级：商业机密}\\[0.2cm]
+  \vfill
+  {\zihao{-5}\color{grayline} 本文件包含商业敏感信息，未经授权请勿外传}
+  \vspace*{1.2cm}
+\end{titlepage}
+
+% ==================== 目录 ====================
+\tableofcontents
+\clearpage
+
+% ==================== 正文 ====================
+\input{chapters/ch01.tex}
+\input{chapters/ch02.tex}
+\input{chapters/ch03.tex}
+\input{chapters/ch04.tex}
+\input{chapters/ch05.tex}
+\input{chapters/ch06.tex}
+\input{chapters/ch07.tex}
+\input{chapters/ch08.tex}
+\input{chapters/ch09.tex}
+\input{chapters/ch10.tex}
+\input{chapters/ch11.tex}
+\input{chapters/appendix.tex}
+
+\end{document}

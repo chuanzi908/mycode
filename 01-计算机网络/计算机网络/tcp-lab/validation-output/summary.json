@@ -1,0 +1,83 @@
+{
+  "timestamp": "2026-10-30T09:20:27.338961+00:00",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "3.13.7 (tags/v3.13.7:bcee1c3, Aug 14 2025, 14:15:11) [MSC v.1944 64 bit (AMD64)]",
+  "checks": [
+    {
+      "name": "unit-tests",
+      "command": [
+        "D:\\python\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log": "unit-tests.log"
+    },
+    {
+      "name": "single-packet",
+      "command": [
+        "D:\\python\\python.exe",
+        "fuzz.py",
+        "--seed",
+        "42",
+        "--cases",
+        "10000",
+        "--output",
+        "C:\\Users\\15320\\tcp-lab-review-20261030\\tcp-lab\\validation-output\\fuzz-results.json"
+      ],
+      "exit_code": 0,
+      "log": "single-packet.log"
+    },
+    {
+      "name": "stateful",
+      "command": [
+        "D:\\python\\python.exe",
+        "agent_fuzz.py",
+        "--seed",
+        "2026",
+        "--rounds",
+        "5",
+        "--episodes",
+        "200",
+        "--output",
+        "C:\\Users\\15320\\tcp-lab-review-20261030\\tcp-lab\\validation-output\\agent-results.json"
+      ],
+      "exit_code": 0,
+      "log": "stateful.log"
+    },
+    {
+      "name": "comparison",
+      "command": [
+        "D:\\python\\python.exe",
+        "experiment.py",
+        "--output",
+        "C:\\Users\\15320\\tcp-lab-review-20261030\\tcp-lab\\validation-output\\comparison.json",
+        "--csv",
+        "C:\\Users\\15320\\tcp-lab-review-20261030\\tcp-lab\\validation-output\\comparison.csv"
+      ],
+      "exit_code": 0,
+      "log": "comparison.log"
+    }
+  ],
+  "passed": true,
+  "scope": "Offline only. No live Linux TUN or real model calls performed.",
+  "sha256": {
+    "agent_fuzz.py": "8679b63a608e064c46d1a39c50fc33ea05eea4d46ceb49a49c3d939918084b68",
+    "client.py": "c8532207349821d7882e0165525493c91dd07ab5144f1f16d46cbf0965851d2e",
+    "experiment.py": "64412b832ffdcba207fbd8c40b1ee52ac9294ea7cf7cef09a9e5d3f195440753",
+    "fuzz.py": "f73e6897014289136d42f900cd2e5ad27a83bf5f91130254e698af3b2a0a6f99",
+    "inspect_pcap.py": "98648a68b33b75b4aa6467ac32c9c485eb956d302716e1b1bf933264ccb34fa8",
+    "integration_linux.py": "d34bbe910fa49c5afb328240e105a75ba905e5bdced03825190c95d12cd002d9",
+    "replay.py": "a0c6a815d9c4c189fc764b5d98795b1f55cbc4a228191135984b9eaa597acde2",
+    "stack.py": "f649f2dd895fd4cc92a9ec7a77f3a1fa9330b83081edcdcf46b0d596b4734823",
+    "verify.py": "dffb23755e0a85dfae9e98d32947c0ff114bc50e9fd19972b5cadf228cb6a5f6",
+    "tests/test_agent.py": "3c482c6f40bf95b4cf840762ed52a4916cb7586a39d80a58f5885220b33e990c",
+    "tests/test_delivery.py": "9d3676af79591a1c416a4c9d3264a41d4d84ce567330dc1072e35306d16c90f9",
+    "tests/test_stack.py": "64a85dbca448d0421acee730ec70c1ac997d4acfa5abffa1bdb43330abe21d15",
+    "tests/test_tools.py": "a0704400f7d91c13c306cc3654c919dffb2b438d15a269ae61a2ab35f25591de"
+  }
+}

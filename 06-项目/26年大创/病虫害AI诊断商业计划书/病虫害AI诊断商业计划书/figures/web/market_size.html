@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<script src="../../node_modules/echarts/dist/echarts.min.js"></script>
+<style>html,body{margin:0;padding:0;background:#ffffff;} #chart{width:100vw;height:100vh;}</style>
+</head><body><div id="chart"></div>
+<script>
+var ch = echarts.init(document.getElementById('chart'));
+ch.setOption({"textStyle": {"fontFamily": "Microsoft YaHei, 'PingFang SC', sans-serif", "color": "#37474f"}, "color": ["#2e7d32", "#f9a825", "#1e88e5", "#ff7043", "#66bb6a", "#26c6da", "#e53935", "#90a4ae"], "title": {"text": "中国智慧农业市场规模及增速", "left": "center", "top": 12, "textStyle": {"fontSize": 18}}, "tooltip": {"trigger": "axis"}, "legend": {"data": ["市场规模", "同比增速"], "top": 44}, "grid": {"left": 60, "right": 60, "top": 80, "bottom": 40}, "xAxis": {"type": "category", "data": ["2024", "2025", "2026", "2027", "2028"]}, "yAxis": [{"type": "value", "name": "亿元", "axisLabel": {"formatter": "{value}"}}, {"type": "value", "name": "%", "max": 25, "axisLabel": {"formatter": "{value}%"}, "splitLine": {"show": false}}], "series": [{"name": "市场规模", "type": "bar", "data": [8500, 10000, 11500, 13000, 14800], "barWidth": "46%", "itemStyle": {"color": "#2e7d32", "borderRadius": [6, 6, 0, 0]}, "label": {"show": true, "position": "top", "formatter": "{c}"}}, {"name": "同比增速", "type": "line", "yAxisIndex": 1, "data": [17.6, 17.6, 15.0, 13.0, 13.8], "symbolSize": 8, "lineStyle": {"width": 3, "color": "#f9a825"}, "itemStyle": {"color": "#f9a825"}, "label": {"show": true, "position": "top", "formatter": "{c}%"}}]});
+</script></body></html>

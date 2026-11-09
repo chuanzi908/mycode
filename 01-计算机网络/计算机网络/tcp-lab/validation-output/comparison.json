@@ -1,0 +1,1307 @@
+{
+  "description": "Equal episode/step limits; actual packet counts may differ. Events are manually instrumented, not code coverage. Same seed does not imply identical inputs once policies diverge. Incomplete model trials are excluded from summaries.",
+  "model": null,
+  "rounds": 5,
+  "episodes_per_round": 200,
+  "seeds": [
+    10000,
+    20000,
+    30000,
+    40000,
+    50000
+  ],
+  "summary": {
+    "fixed": {
+      "runs": 5,
+      "incomplete_runs": 0,
+      "mean_observed_events": 12,
+      "total_failures": 0,
+      "mean_input_packets": 6789,
+      "mean_seconds": 0.1261
+    },
+    "feedback": {
+      "runs": 5,
+      "incomplete_runs": 0,
+      "mean_observed_events": 12.2,
+      "total_failures": 0,
+      "mean_input_packets": 8674.8,
+      "mean_seconds": 0.1622
+    }
+  },
+  "trials": [
+    {
+      "seed": 10000,
+      "policy": "fixed",
+      "episodes": 1000,
+      "steps_limit": 12,
+      "events": [
+        "ack.duplicate",
+        "ack.invalid",
+        "ack.progress",
+        "closed.syn_received",
+        "established.data",
+        "established.fin",
+        "flow.reset",
+        "last_ack.closed",
+        "parse.accept",
+        "parse.reject",
+        "syn_received.established",
+        "timer.retransmit"
+      ],
+      "first_seen_episode": {
+        "ack.progress": 1,
+        "closed.syn_received": 1,
+        "flow.reset": 1,
+        "parse.accept": 1,
+        "syn_received.established": 1,
+        "ack.duplicate": 2,
+        "ack.invalid": 2,
+        "established.data": 2,
+        "parse.reject": 2,
+        "timer.retransmit": 2,
+        "established.fin": 3,
+        "last_ack.closed": 6
+      },
+      "failure_count": 0,
+      "elapsed_seconds": 0.1299,
+      "trajectory": [
+        {
+          "round": 1,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 1,
+            "bad_ack": 1,
+            "duplicate": 1,
+            "rst": 1,
+            "bad_checksum": 1,
+            "wait": 1
+          },
+          "new_events": [
+            "ack.duplicate",
+            "ack.invalid",
+            "ack.progress",
+            "closed.syn_received",
+            "established.data",
+            "established.fin",
+            "flow.reset",
+            "last_ack.closed",
+            "parse.accept",
+            "parse.reject",
+            "syn_received.established",
+            "timer.retransmit"
+          ],
+          "event_count": 12
+        },
+        {
+          "round": 2,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 1,
+            "bad_ack": 1,
+            "duplicate": 1,
+            "rst": 1,
+            "bad_checksum": 1,
+            "wait": 1
+          },
+          "new_events": [],
+          "event_count": 12
+        },
+        {
+          "round": 3,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 1,
+            "bad_ack": 1,
+            "duplicate": 1,
+            "rst": 1,
+            "bad_checksum": 1,
+            "wait": 1
+          },
+          "new_events": [],
+          "event_count": 12
+        },
+        {
+          "round": 4,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 1,
+            "bad_ack": 1,
+            "duplicate": 1,
+            "rst": 1,
+            "bad_checksum": 1,
+            "wait": 1
+          },
+          "new_events": [],
+          "event_count": 12
+        },
+        {
+          "round": 5,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 1,
+            "bad_ack": 1,
+            "duplicate": 1,
+            "rst": 1,
+            "bad_checksum": 1,
+            "wait": 1
+          },
+          "new_events": [],
+          "event_count": 12
+        }
+      ],
+      "model_calls": [],
+      "planner_error": null,
+      "status": "complete",
+      "input_packets": 6829,
+      "output_packets": 4484,
+      "timer_actions": 822
+    },
+    {
+      "seed": 10000,
+      "policy": "feedback",
+      "episodes": 1000,
+      "steps_limit": 12,
+      "events": [
+        "ack.duplicate",
+        "ack.invalid",
+        "ack.progress",
+        "closed.syn_received",
+        "established.data",
+        "established.fin",
+        "flow.reset",
+        "last_ack.closed",
+        "parse.accept",
+        "parse.reject",
+        "syn_received.established",
+        "timer.retransmit"
+      ],
+      "first_seen_episode": {
+        "ack.progress": 1,
+        "closed.syn_received": 1,
+        "flow.reset": 1,
+        "parse.accept": 1,
+        "syn_received.established": 1,
+        "ack.duplicate": 2,
+        "ack.invalid": 2,
+        "established.data": 2,
+        "parse.reject": 2,
+        "timer.retransmit": 2,
+        "established.fin": 3,
+        "last_ack.closed": 6
+      },
+      "failure_count": 0,
+      "elapsed_seconds": 0.1642,
+      "trajectory": [
+        {
+          "round": 1,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 1,
+            "bad_ack": 1,
+            "duplicate": 1,
+            "rst": 1,
+            "bad_checksum": 1,
+            "wait": 1
+          },
+          "new_events": [
+            "ack.duplicate",
+            "ack.invalid",
+            "ack.progress",
+            "closed.syn_received",
+            "established.data",
+            "established.fin",
+            "flow.reset",
+            "last_ack.closed",
+            "parse.accept",
+            "parse.reject",
+            "syn_received.established",
+            "timer.retransmit"
+          ],
+          "event_count": 12
+        },
+        {
+          "round": 2,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 2,
+            "bad_ack": 2,
+            "duplicate": 2,
+            "rst": 1,
+            "bad_checksum": 2,
+            "wait": 2
+          },
+          "new_events": [],
+          "event_count": 12
+        },
+        {
+          "round": 3,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 3,
+            "bad_ack": 3,
+            "duplicate": 3,
+            "rst": 1,
+            "bad_checksum": 3,
+            "wait": 3
+          },
+          "new_events": [],
+          "event_count": 12
+        },
+        {
+          "round": 4,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 4,
+            "bad_ack": 4,
+            "duplicate": 4,
+            "rst": 1,
+            "bad_checksum": 4,
+            "wait": 4
+          },
+          "new_events": [],
+          "event_count": 12
+        },
+        {
+          "round": 5,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 5,
+            "bad_ack": 5,
+            "duplicate": 5,
+            "rst": 1,
+            "bad_checksum": 5,
+            "wait": 5
+          },
+          "new_events": [],
+          "event_count": 12
+        }
+      ],
+      "model_calls": [],
+      "planner_error": null,
+      "status": "complete",
+      "input_packets": 8682,
+      "output_packets": 6036,
+      "timer_actions": 1367
+    },
+    {
+      "seed": 20000,
+      "policy": "fixed",
+      "episodes": 1000,
+      "steps_limit": 12,
+      "events": [
+        "ack.duplicate",
+        "ack.invalid",
+        "ack.progress",
+        "closed.syn_received",
+        "established.data",
+        "established.fin",
+        "flow.reset",
+        "last_ack.closed",
+        "parse.accept",
+        "parse.reject",
+        "syn_received.established",
+        "timer.retransmit"
+      ],
+      "first_seen_episode": {
+        "ack.duplicate": 1,
+        "ack.invalid": 1,
+        "ack.progress": 1,
+        "closed.syn_received": 1,
+        "established.data": 1,
+        "flow.reset": 1,
+        "parse.accept": 1,
+        "parse.reject": 1,
+        "syn_received.established": 1,
+        "timer.retransmit": 1,
+        "established.fin": 4,
+        "last_ack.closed": 4
+      },
+      "failure_count": 0,
+      "elapsed_seconds": 0.1254,
+      "trajectory": [
+        {
+          "round": 1,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 1,
+            "bad_ack": 1,
+            "duplicate": 1,
+            "rst": 1,
+            "bad_checksum": 1,
+            "wait": 1
+          },
+          "new_events": [
+            "ack.duplicate",
+            "ack.invalid",
+            "ack.progress",
+            "closed.syn_received",
+            "established.data",
+            "established.fin",
+            "flow.reset",
+            "last_ack.closed",
+            "parse.accept",
+            "parse.reject",
+            "syn_received.established",
+            "timer.retransmit"
+          ],
+          "event_count": 12
+        },
+        {
+          "round": 2,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 1,
+            "bad_ack": 1,
+            "duplicate": 1,
+            "rst": 1,
+            "bad_checksum": 1,
+            "wait": 1
+          },
+          "new_events": [],
+          "event_count": 12
+        },
+        {
+          "round": 3,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 1,
+            "bad_ack": 1,
+            "duplicate": 1,
+            "rst": 1,
+            "bad_checksum": 1,
+            "wait": 1
+          },
+          "new_events": [],
+          "event_count": 12
+        },
+        {
+          "round": 4,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 1,
+            "bad_ack": 1,
+            "duplicate": 1,
+            "rst": 1,
+            "bad_checksum": 1,
+            "wait": 1
+          },
+          "new_events": [],
+          "event_count": 12
+        },
+        {
+          "round": 5,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 1,
+            "bad_ack": 1,
+            "duplicate": 1,
+            "rst": 1,
+            "bad_checksum": 1,
+            "wait": 1
+          },
+          "new_events": [],
+          "event_count": 12
+        }
+      ],
+      "model_calls": [],
+      "planner_error": null,
+      "status": "complete",
+      "input_packets": 6800,
+      "output_packets": 4337,
+      "timer_actions": 764
+    },
+    {
+      "seed": 20000,
+      "policy": "feedback",
+      "episodes": 1000,
+      "steps_limit": 12,
+      "events": [
+        "ack.duplicate",
+        "ack.invalid",
+        "ack.progress",
+        "closed.syn_received",
+        "established.data",
+        "established.fin",
+        "flow.reset",
+        "last_ack.closed",
+        "parse.accept",
+        "parse.reject",
+        "syn_received.established",
+        "timer.retransmit"
+      ],
+      "first_seen_episode": {
+        "ack.duplicate": 1,
+        "ack.invalid": 1,
+        "ack.progress": 1,
+        "closed.syn_received": 1,
+        "established.data": 1,
+        "flow.reset": 1,
+        "parse.accept": 1,
+        "parse.reject": 1,
+        "syn_received.established": 1,
+        "timer.retransmit": 1,
+        "established.fin": 4,
+        "last_ack.closed": 4
+      },
+      "failure_count": 0,
+      "elapsed_seconds": 0.1606,
+      "trajectory": [
+        {
+          "round": 1,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 1,
+            "bad_ack": 1,
+            "duplicate": 1,
+            "rst": 1,
+            "bad_checksum": 1,
+            "wait": 1
+          },
+          "new_events": [
+            "ack.duplicate",
+            "ack.invalid",
+            "ack.progress",
+            "closed.syn_received",
+            "established.data",
+            "established.fin",
+            "flow.reset",
+            "last_ack.closed",
+            "parse.accept",
+            "parse.reject",
+            "syn_received.established",
+            "timer.retransmit"
+          ],
+          "event_count": 12
+        },
+        {
+          "round": 2,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 2,
+            "bad_ack": 2,
+            "duplicate": 2,
+            "rst": 1,
+            "bad_checksum": 2,
+            "wait": 2
+          },
+          "new_events": [],
+          "event_count": 12
+        },
+        {
+          "round": 3,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 3,
+            "bad_ack": 3,
+            "duplicate": 3,
+            "rst": 1,
+            "bad_checksum": 3,
+            "wait": 3
+          },
+          "new_events": [],
+          "event_count": 12
+        },
+        {
+          "round": 4,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 4,
+            "bad_ack": 4,
+            "duplicate": 4,
+            "rst": 1,
+            "bad_checksum": 4,
+            "wait": 4
+          },
+          "new_events": [],
+          "event_count": 12
+        },
+        {
+          "round": 5,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 5,
+            "bad_ack": 5,
+            "duplicate": 5,
+            "rst": 1,
+            "bad_checksum": 5,
+            "wait": 5
+          },
+          "new_events": [],
+          "event_count": 12
+        }
+      ],
+      "model_calls": [],
+      "planner_error": null,
+      "status": "complete",
+      "input_packets": 8587,
+      "output_packets": 5917,
+      "timer_actions": 1386
+    },
+    {
+      "seed": 30000,
+      "policy": "fixed",
+      "episodes": 1000,
+      "steps_limit": 12,
+      "events": [
+        "ack.duplicate",
+        "ack.invalid",
+        "ack.progress",
+        "closed.syn_received",
+        "established.data",
+        "established.fin",
+        "flow.reset",
+        "last_ack.closed",
+        "parse.accept",
+        "parse.reject",
+        "syn_received.established",
+        "timer.retransmit"
+      ],
+      "first_seen_episode": {
+        "ack.duplicate": 1,
+        "ack.progress": 1,
+        "closed.syn_received": 1,
+        "established.fin": 1,
+        "last_ack.closed": 1,
+        "parse.accept": 1,
+        "parse.reject": 1,
+        "syn_received.established": 1,
+        "ack.invalid": 2,
+        "flow.reset": 2,
+        "established.data": 3,
+        "timer.retransmit": 9
+      },
+      "failure_count": 0,
+      "elapsed_seconds": 0.1233,
+      "trajectory": [
+        {
+          "round": 1,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 1,
+            "bad_ack": 1,
+            "duplicate": 1,
+            "rst": 1,
+            "bad_checksum": 1,
+            "wait": 1
+          },
+          "new_events": [
+            "ack.duplicate",
+            "ack.invalid",
+            "ack.progress",
+            "closed.syn_received",
+            "established.data",
+            "established.fin",
+            "flow.reset",
+            "last_ack.closed",
+            "parse.accept",
+            "parse.reject",
+            "syn_received.established",
+            "timer.retransmit"
+          ],
+          "event_count": 12
+        },
+        {
+          "round": 2,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 1,
+            "bad_ack": 1,
+            "duplicate": 1,
+            "rst": 1,
+            "bad_checksum": 1,
+            "wait": 1
+          },
+          "new_events": [],
+          "event_count": 12
+        },
+        {
+          "round": 3,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 1,
+            "bad_ack": 1,
+            "duplicate": 1,
+            "rst": 1,
+            "bad_checksum": 1,
+            "wait": 1
+          },
+          "new_events": [],
+          "event_count": 12
+        },
+        {
+          "round": 4,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 1,
+            "bad_ack": 1,
+            "duplicate": 1,
+            "rst": 1,
+            "bad_checksum": 1,
+            "wait": 1
+          },
+          "new_events": [],
+          "event_count": 12
+        },
+        {
+          "round": 5,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 1,
+            "bad_ack": 1,
+            "duplicate": 1,
+            "rst": 1,
+            "bad_checksum": 1,
+            "wait": 1
+          },
+          "new_events": [],
+          "event_count": 12
+        }
+      ],
+      "model_calls": [],
+      "planner_error": null,
+      "status": "complete",
+      "input_packets": 6683,
+      "output_packets": 4335,
+      "timer_actions": 746
+    },
+    {
+      "seed": 30000,
+      "policy": "feedback",
+      "episodes": 1000,
+      "steps_limit": 12,
+      "events": [
+        "ack.duplicate",
+        "ack.invalid",
+        "ack.progress",
+        "closed.syn_received",
+        "established.data",
+        "established.fin",
+        "flow.reset",
+        "last_ack.closed",
+        "parse.accept",
+        "parse.reject",
+        "retransmit.exhausted",
+        "syn_received.established",
+        "timer.retransmit"
+      ],
+      "first_seen_episode": {
+        "ack.duplicate": 1,
+        "ack.progress": 1,
+        "closed.syn_received": 1,
+        "established.fin": 1,
+        "last_ack.closed": 1,
+        "parse.accept": 1,
+        "parse.reject": 1,
+        "syn_received.established": 1,
+        "ack.invalid": 2,
+        "flow.reset": 2,
+        "established.data": 3,
+        "timer.retransmit": 9,
+        "retransmit.exhausted": 819
+      },
+      "failure_count": 0,
+      "elapsed_seconds": 0.1616,
+      "trajectory": [
+        {
+          "round": 1,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 1,
+            "bad_ack": 1,
+            "duplicate": 1,
+            "rst": 1,
+            "bad_checksum": 1,
+            "wait": 1
+          },
+          "new_events": [
+            "ack.duplicate",
+            "ack.invalid",
+            "ack.progress",
+            "closed.syn_received",
+            "established.data",
+            "established.fin",
+            "flow.reset",
+            "last_ack.closed",
+            "parse.accept",
+            "parse.reject",
+            "syn_received.established",
+            "timer.retransmit"
+          ],
+          "event_count": 12
+        },
+        {
+          "round": 2,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 2,
+            "bad_ack": 2,
+            "duplicate": 2,
+            "rst": 1,
+            "bad_checksum": 2,
+            "wait": 2
+          },
+          "new_events": [],
+          "event_count": 12
+        },
+        {
+          "round": 3,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 3,
+            "bad_ack": 3,
+            "duplicate": 3,
+            "rst": 1,
+            "bad_checksum": 3,
+            "wait": 3
+          },
+          "new_events": [],
+          "event_count": 12
+        },
+        {
+          "round": 4,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 4,
+            "bad_ack": 4,
+            "duplicate": 4,
+            "rst": 1,
+            "bad_checksum": 4,
+            "wait": 4
+          },
+          "new_events": [],
+          "event_count": 12
+        },
+        {
+          "round": 5,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 5,
+            "bad_ack": 5,
+            "duplicate": 5,
+            "rst": 1,
+            "bad_checksum": 5,
+            "wait": 5
+          },
+          "new_events": [
+            "retransmit.exhausted"
+          ],
+          "event_count": 13
+        }
+      ],
+      "model_calls": [],
+      "planner_error": null,
+      "status": "complete",
+      "input_packets": 8694,
+      "output_packets": 6050,
+      "timer_actions": 1368
+    },
+    {
+      "seed": 40000,
+      "policy": "fixed",
+      "episodes": 1000,
+      "steps_limit": 12,
+      "events": [
+        "ack.duplicate",
+        "ack.invalid",
+        "ack.progress",
+        "closed.syn_received",
+        "established.data",
+        "established.fin",
+        "flow.reset",
+        "last_ack.closed",
+        "parse.accept",
+        "parse.reject",
+        "syn_received.established",
+        "timer.retransmit"
+      ],
+      "first_seen_episode": {
+        "ack.progress": 1,
+        "closed.syn_received": 1,
+        "flow.reset": 1,
+        "parse.accept": 1,
+        "syn_received.established": 1,
+        "ack.invalid": 2,
+        "parse.reject": 3,
+        "ack.duplicate": 5,
+        "established.data": 5,
+        "timer.retransmit": 5,
+        "established.fin": 22,
+        "last_ack.closed": 22
+      },
+      "failure_count": 0,
+      "elapsed_seconds": 0.1261,
+      "trajectory": [
+        {
+          "round": 1,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 1,
+            "bad_ack": 1,
+            "duplicate": 1,
+            "rst": 1,
+            "bad_checksum": 1,
+            "wait": 1
+          },
+          "new_events": [
+            "ack.duplicate",
+            "ack.invalid",
+            "ack.progress",
+            "closed.syn_received",
+            "established.data",
+            "established.fin",
+            "flow.reset",
+            "last_ack.closed",
+            "parse.accept",
+            "parse.reject",
+            "syn_received.established",
+            "timer.retransmit"
+          ],
+          "event_count": 12
+        },
+        {
+          "round": 2,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 1,
+            "bad_ack": 1,
+            "duplicate": 1,
+            "rst": 1,
+            "bad_checksum": 1,
+            "wait": 1
+          },
+          "new_events": [],
+          "event_count": 12
+        },
+        {
+          "round": 3,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 1,
+            "bad_ack": 1,
+            "duplicate": 1,
+            "rst": 1,
+            "bad_checksum": 1,
+            "wait": 1
+          },
+          "new_events": [],
+          "event_count": 12
+        },
+        {
+          "round": 4,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 1,
+            "bad_ack": 1,
+            "duplicate": 1,
+            "rst": 1,
+            "bad_checksum": 1,
+            "wait": 1
+          },
+          "new_events": [],
+          "event_count": 12
+        },
+        {
+          "round": 5,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 1,
+            "bad_ack": 1,
+            "duplicate": 1,
+            "rst": 1,
+            "bad_checksum": 1,
+            "wait": 1
+          },
+          "new_events": [],
+          "event_count": 12
+        }
+      ],
+      "model_calls": [],
+      "planner_error": null,
+      "status": "complete",
+      "input_packets": 6779,
+      "output_packets": 4398,
+      "timer_actions": 786
+    },
+    {
+      "seed": 40000,
+      "policy": "feedback",
+      "episodes": 1000,
+      "steps_limit": 12,
+      "events": [
+        "ack.duplicate",
+        "ack.invalid",
+        "ack.progress",
+        "closed.syn_received",
+        "established.data",
+        "established.fin",
+        "flow.reset",
+        "last_ack.closed",
+        "parse.accept",
+        "parse.reject",
+        "syn_received.established",
+        "timer.retransmit"
+      ],
+      "first_seen_episode": {
+        "ack.progress": 1,
+        "closed.syn_received": 1,
+        "flow.reset": 1,
+        "parse.accept": 1,
+        "syn_received.established": 1,
+        "ack.invalid": 2,
+        "parse.reject": 3,
+        "ack.duplicate": 5,
+        "established.data": 5,
+        "timer.retransmit": 5,
+        "established.fin": 22,
+        "last_ack.closed": 22
+      },
+      "failure_count": 0,
+      "elapsed_seconds": 0.1596,
+      "trajectory": [
+        {
+          "round": 1,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 1,
+            "bad_ack": 1,
+            "duplicate": 1,
+            "rst": 1,
+            "bad_checksum": 1,
+            "wait": 1
+          },
+          "new_events": [
+            "ack.duplicate",
+            "ack.invalid",
+            "ack.progress",
+            "closed.syn_received",
+            "established.data",
+            "established.fin",
+            "flow.reset",
+            "last_ack.closed",
+            "parse.accept",
+            "parse.reject",
+            "syn_received.established",
+            "timer.retransmit"
+          ],
+          "event_count": 12
+        },
+        {
+          "round": 2,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 2,
+            "bad_ack": 2,
+            "duplicate": 2,
+            "rst": 1,
+            "bad_checksum": 2,
+            "wait": 2
+          },
+          "new_events": [],
+          "event_count": 12
+        },
+        {
+          "round": 3,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 3,
+            "bad_ack": 3,
+            "duplicate": 3,
+            "rst": 1,
+            "bad_checksum": 3,
+            "wait": 3
+          },
+          "new_events": [],
+          "event_count": 12
+        },
+        {
+          "round": 4,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 4,
+            "bad_ack": 4,
+            "duplicate": 4,
+            "rst": 1,
+            "bad_checksum": 4,
+            "wait": 4
+          },
+          "new_events": [],
+          "event_count": 12
+        },
+        {
+          "round": 5,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 5,
+            "bad_ack": 5,
+            "duplicate": 5,
+            "rst": 1,
+            "bad_checksum": 5,
+            "wait": 5
+          },
+          "new_events": [],
+          "event_count": 12
+        }
+      ],
+      "model_calls": [],
+      "planner_error": null,
+      "status": "complete",
+      "input_packets": 8531,
+      "output_packets": 5918,
+      "timer_actions": 1387
+    },
+    {
+      "seed": 50000,
+      "policy": "fixed",
+      "episodes": 1000,
+      "steps_limit": 12,
+      "events": [
+        "ack.duplicate",
+        "ack.invalid",
+        "ack.progress",
+        "closed.syn_received",
+        "established.data",
+        "established.fin",
+        "flow.reset",
+        "last_ack.closed",
+        "parse.accept",
+        "parse.reject",
+        "syn_received.established",
+        "timer.retransmit"
+      ],
+      "first_seen_episode": {
+        "ack.progress": 1,
+        "closed.syn_received": 1,
+        "flow.reset": 1,
+        "parse.accept": 1,
+        "syn_received.established": 1,
+        "ack.duplicate": 2,
+        "established.data": 2,
+        "parse.reject": 2,
+        "timer.retransmit": 2,
+        "ack.invalid": 4,
+        "established.fin": 8,
+        "last_ack.closed": 21
+      },
+      "failure_count": 0,
+      "elapsed_seconds": 0.126,
+      "trajectory": [
+        {
+          "round": 1,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 1,
+            "bad_ack": 1,
+            "duplicate": 1,
+            "rst": 1,
+            "bad_checksum": 1,
+            "wait": 1
+          },
+          "new_events": [
+            "ack.duplicate",
+            "ack.invalid",
+            "ack.progress",
+            "closed.syn_received",
+            "established.data",
+            "established.fin",
+            "flow.reset",
+            "last_ack.closed",
+            "parse.accept",
+            "parse.reject",
+            "syn_received.established",
+            "timer.retransmit"
+          ],
+          "event_count": 12
+        },
+        {
+          "round": 2,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 1,
+            "bad_ack": 1,
+            "duplicate": 1,
+            "rst": 1,
+            "bad_checksum": 1,
+            "wait": 1
+          },
+          "new_events": [],
+          "event_count": 12
+        },
+        {
+          "round": 3,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 1,
+            "bad_ack": 1,
+            "duplicate": 1,
+            "rst": 1,
+            "bad_checksum": 1,
+            "wait": 1
+          },
+          "new_events": [],
+          "event_count": 12
+        },
+        {
+          "round": 4,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 1,
+            "bad_ack": 1,
+            "duplicate": 1,
+            "rst": 1,
+            "bad_checksum": 1,
+            "wait": 1
+          },
+          "new_events": [],
+          "event_count": 12
+        },
+        {
+          "round": 5,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 1,
+            "bad_ack": 1,
+            "duplicate": 1,
+            "rst": 1,
+            "bad_checksum": 1,
+            "wait": 1
+          },
+          "new_events": [],
+          "event_count": 12
+        }
+      ],
+      "model_calls": [],
+      "planner_error": null,
+      "status": "complete",
+      "input_packets": 6854,
+      "output_packets": 4443,
+      "timer_actions": 793
+    },
+    {
+      "seed": 50000,
+      "policy": "feedback",
+      "episodes": 1000,
+      "steps_limit": 12,
+      "events": [
+        "ack.duplicate",
+        "ack.invalid",
+        "ack.progress",
+        "closed.syn_received",
+        "established.data",
+        "established.fin",
+        "flow.reset",
+        "last_ack.closed",
+        "parse.accept",
+        "parse.reject",
+        "syn_received.established",
+        "timer.retransmit"
+      ],
+      "first_seen_episode": {
+        "ack.progress": 1,
+        "closed.syn_received": 1,
+        "flow.reset": 1,
+        "parse.accept": 1,
+        "syn_received.established": 1,
+        "ack.duplicate": 2,
+        "established.data": 2,
+        "parse.reject": 2,
+        "timer.retransmit": 2,
+        "ack.invalid": 4,
+        "established.fin": 8,
+        "last_ack.closed": 21
+      },
+      "failure_count": 0,
+      "elapsed_seconds": 0.1648,
+      "trajectory": [
+        {
+          "round": 1,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 1,
+            "bad_ack": 1,
+            "duplicate": 1,
+            "rst": 1,
+            "bad_checksum": 1,
+            "wait": 1
+          },
+          "new_events": [
+            "ack.duplicate",
+            "ack.invalid",
+            "ack.progress",
+            "closed.syn_received",
+            "established.data",
+            "established.fin",
+            "flow.reset",
+            "last_ack.closed",
+            "parse.accept",
+            "parse.reject",
+            "syn_received.established",
+            "timer.retransmit"
+          ],
+          "event_count": 12
+        },
+        {
+          "round": 2,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 2,
+            "bad_ack": 2,
+            "duplicate": 2,
+            "rst": 1,
+            "bad_checksum": 2,
+            "wait": 2
+          },
+          "new_events": [],
+          "event_count": 12
+        },
+        {
+          "round": 3,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 3,
+            "bad_ack": 3,
+            "duplicate": 3,
+            "rst": 1,
+            "bad_checksum": 3,
+            "wait": 3
+          },
+          "new_events": [],
+          "event_count": 12
+        },
+        {
+          "round": 4,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 4,
+            "bad_ack": 4,
+            "duplicate": 4,
+            "rst": 1,
+            "bad_checksum": 4,
+            "wait": 4
+          },
+          "new_events": [],
+          "event_count": 12
+        },
+        {
+          "round": 5,
+          "weights": {
+            "valid": 1,
+            "bad_seq": 5,
+            "bad_ack": 5,
+            "duplicate": 5,
+            "rst": 1,
+            "bad_checksum": 5,
+            "wait": 5
+          },
+          "new_events": [],
+          "event_count": 12
+        }
+      ],
+      "model_calls": [],
+      "planner_error": null,
+      "status": "complete",
+      "input_packets": 8880,
+      "output_packets": 6162,
+      "timer_actions": 1419
+    }
+  ]
+}

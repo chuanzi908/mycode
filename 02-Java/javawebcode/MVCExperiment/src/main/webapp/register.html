@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <style>
+        body { font-family: Arial; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f5f5f5; }
+        .form { background: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); width: 350px; }
+        h2 { margin-bottom: 20px; }
+        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; }
+        button { width: 100%; padding: 12px; background: #667eea; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        button:disabled { background: #ccc; cursor: not-allowed; }
+        a { color: #667eea; text-decoration: none; }
+        .error { color: #e74c3c; font-size: 12px; margin-top: 5px; }
+        .success { color: #27ae60; font-size: 14px; margin-top: 10px; text-align: center; }
+    </style>
+</head>
+<body>
+<div class="form">
+    <h2>User Registration</h2>
+    <input type="text" id="username" placeholder="Username (at least 3 characters)">
+    <div id="username-error" class="error"></div>
+
+    <input type="password" id="password" placeholder="Password (at least 6 characters)">
+    <div id="password-error" class="error"></div>
+
+    <input type="email" id="email" placeholder="Email">
+    <div id="email-error" class="error"></div>
+
+    <button id="register-btn" onclick="register()">Register</button>
+    <div id="message"></div>
+    <p style="margin-top: 15px;">Already have an account? <a href="login.html">Login here</a></p>
+</div>
+
+<script>
+    function validateForm() {
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value;
+        const email = document.getElementById('email').value.trim();
+
+        let isValid = true;
+
+        if (username.length < 3) {
+            document.getElementById('username-error').textContent = 'Username must be at least 3 characters';
+            isValid = false;
+        } else {
+            document.getElementById('username-error').textContent = '';
+        }
+
+        if (password.length < 6) {
+            document.getElementById('password-error').textContent = 'Password must be at least 6 characters';
+            isValid = false;
+        } else {
+            document.getElementById('password-error').textContent = '';
+        }
+
+        if (email && !email.includes('@')) {
+            document.getElementById('email-error').textContent = 'Please enter a valid email';
+            isValid = false;
+        } else {
+            document.getElementById('email-error').textContent = '';
+        }
+
+        return isValid;
+    }
+
+    function register() {
+        if (!validateForm()) {
+            return;
+        }
+
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value;
+        const email = document.getElementById('email').value.trim();
+        const btn = document.getElementById('register-btn');
+        const messageDiv = document.getElementById('message');
+
+        console.log('Registration data - username:', username, 'length:', username.length);
+        console.log('Password length:', password.length);
+        console.log('Email:', email);
+
+        if (!username || username.length === 0) {
+            messageDiv.innerHTML = '<div class="error">Username is empty after trim</div>';
+            return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = 'Registering...';
+
+        const formData = new FormData();
+        formData.append('username', username);
+        formData.append('password', password);
+        formData.append('email', email);
+
+        const url = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1) + 'user/register';
+        console.log('Request URL:', url);
+
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => {
+            console.log('Response status:', res.status);
+            console.log('Response URL:', res.url);
+            return res.json();
+        })
+        .then(data => {
+            console.log('Response data:', data);
+            btn.disabled = false;
+            btn.textContent = 'Register';
+
+            if (data.success) {
+                messageDiv.innerHTML = '<div class="success">Registration successful! Redirecting to login...</div>';
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 1500);
+            } else {
+                messageDiv.innerHTML = '<div class="error">' + data.message + '</div>';
+            }
+        })
+        .catch(error => {
+            btn.disabled = false;
+            btn.textContent = 'Register';
+            messageDiv.innerHTML = '<div class="error">Registration failed: ' + error.message + '</div>';
+            console.error('Error:', error);
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<script src="../../node_modules/echarts/dist/echarts.min.js"></script>
+<style>html,body{margin:0;padding:0;background:#ffffff;} #chart{width:100vw;height:100vh;}</style>
+</head><body><div id="chart"></div>
+<script>
+var ch = echarts.init(document.getElementById('chart'));
+ch.setOption({"textStyle": {"fontFamily": "Microsoft YaHei, 'PingFang SC', sans-serif", "color": "#37474f"}, "color": ["#2e7d32", "#f9a825", "#1e88e5", "#ff7043", "#66bb6a", "#26c6da", "#e53935", "#90a4ae"], "title": {"text": "种子轮融资资金用途（%）", "left": "center", "top": 12, "textStyle": {"fontSize": 18}}, "tooltip": {"trigger": "item", "formatter": "{b}: {d}%"}, "legend": {"bottom": 10, "textStyle": {"fontSize": 12}}, "series": [{"type": "pie", "radius": ["38%", "64%"], "center": ["50%", "50%"], "data": [{"name": "技术研发与模型迭代", "value": 40}, {"name": "市场推广与渠道", "value": 24}, {"name": "数据采集与标注", "value": 16}, {"name": "团队与运营", "value": 12}, {"name": "储备资金", "value": 8}], "label": {"formatter": "{d}%", "fontSize": 13, "fontWeight": "bold"}, "itemStyle": {"borderRadius": 6, "borderColor": "#fff", "borderWidth": 2}}]});
+</script></body></html>

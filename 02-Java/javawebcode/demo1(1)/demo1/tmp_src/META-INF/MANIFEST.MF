@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Created-By: Maven Source Plugin 3.2.1
+Specification-Title: mybatis
+Specification-Version: 3.5
+Specification-Vendor: MyBatis.org
+Implementation-Title: mybatis
+Implementation-Version: 3.5.13
+Implementation-Vendor: MyBatis.org
+Automatic-Module-Name: org.mybatis
+Copyright: 2022
+Git-Revision: 17f5ac72062b3cdf25be21767a757ce0de05485f
+X-Compile-Release-JDK: 8
+X-Compile-Source-JDK: 16
+X-Compile-Target-JDK: 16
+

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chapter01.EmpCustomerMapper">
+
+    <resultMap id="EmpCustomerMap" type="com.entity.EmpCustomer">
+        <id column="id" property="id"/>
+        <result column="emp_id" property="empId"/>
+        <result column="customer_id" property="customerId"/>
+        <result column="created_at" property="createdAt"/>
+        <association property="emp" javaType="com.entity.Emp">
+            <id column="e_id" property="id"/>
+            <result column="e_name" property="name"/>
+            <result column="e_age" property="age"/>
+            <result column="e_dept" property="dept"/>
+            <result column="e_salary" property="salary"/>
+            <result column="e_hire_date" property="hireDate"/>
+        </association>
+        <association property="customer" javaType="com.entity.Customer">
+            <id column="c_id" property="id"/>
+            <result column="c_name" property="name"/>
+            <result column="c_phone" property="phone"/>
+            <result column="c_email" property="email"/>
+            <result column="c_address" property="address"/>
+            <result column="c_level" property="level"/>
+        </association>
+    </resultMap>
+
+    <sql id="joinEmpCustomer">
+        SELECT ec.*,
+               e.id AS e_id, e.name AS e_name, e.age AS e_age, e.dept AS e_dept,
+               e.salary AS e_salary, e.hire_date AS e_hire_date,
+               c.id AS c_id, c.name AS c_name, c.phone AS c_phone,
+               c.email AS c_email, c.address AS c_address, c.level AS c_level
+        FROM emp_customer ec
+        LEFT JOIN emp e ON ec.emp_id = e.id
+        LEFT JOIN customer c ON ec.customer_id = c.id
+    </sql>
+
+    <select id="findAll" resultMap="EmpCustomerMap">
+        <include refid="joinEmpCustomer"/>
+    </select>
+
+    <select id="findByEmpId" resultMap="EmpCustomerMap">
+        <include refid="joinEmpCustomer"/>
+        <where>ec.emp_id = #{empId}</where>
+    </select>
+
+    <select id="findByCustomerId" resultMap="EmpCustomerMap">
+        <include refid="joinEmpCustomer"/>
+        <where>ec.customer_id = #{customerId}</where>
+    </select>
+
+    <insert id="addEmpCustomer" parameterType="com.entity.EmpCustomer"
+            useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO emp_customer(emp_id, customer_id)
+        VALUES(#{empId}, #{customerId})
+    </insert>
+
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM emp_customer WHERE id = #{id}
+    </delete>
+
+    <delete id="deleteByEmpId" parameterType="int">
+        DELETE FROM emp_customer WHERE emp_id = #{empId}
+    </delete>
+
+    <delete id="deleteByCustomerId" parameterType="int">
+        DELETE FROM emp_customer WHERE customer_id = #{customerId}
+    </delete>
+
+</mapper>

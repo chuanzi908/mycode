@@ -1,0 +1,21 @@
+<Huawei>sys
+[Huawei]sysname LSW3
+[LSW3]undo info-center enable 
+[LSW3]interface Vlanif 1
+[LSW3-Vlanif1]ip add 192.168.1.3 24
+[LSW3-Vlanif1]quit
+[LSW3]vlan batch 10 20
+[LSW3]interface g0/0/2
+[LSW3-GigabitEthernet0/0/2]port link-type trunk
+[LSW3-GigabitEthernet0/0/2]port trunk allow-pass vlan 10 20
+[LSW3-GigabitEthernet0/0/2]quit
+[LSW3]port-group group-member Ethernet 0/0/1 to Ethernet 0/0/2
+[LSW3-port-group]port link-type access 
+[LSW3-Ethernet0/0/1]port link-type access 
+[LSW3-Ethernet0/0/2]port link-type access 
+[LSW3-port-group]port default vlan 10
+[LSW3-Ethernet0/0/1]port default vlan 10
+[LSW3-Ethernet0/0/2]port default vlan 10
+[LSW3-port-group]quit
+[LSW3]quit
+<LSW3>save

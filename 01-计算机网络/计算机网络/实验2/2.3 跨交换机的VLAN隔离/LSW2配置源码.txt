@@ -1,0 +1,32 @@
+（1）初始配置：
+<huawei>system-view
+[huawei]hostname LSW2
+[LSW2]interface vlanif 1   //进入管理接口vlanif1
+[LSW2-Vlanif1]ip address 192.168.1.2 255.255.255.0   //配置管理IP
+[LSW2-Vlanif1]quit
+//配置远程管理信息
+[LSW2]telnet server enable
+[LSW2]user-interface vty 0 4
+[LSW2-ui-vty0-4]set authentication password cipher huawei123
+[LSW2-ui-vty0-4]user privilege level 15
+[LSW2-ui-vty0-4]protocol inbound telnet
+（2）划VLAN，归端口：
+//划VLAN
+[LSW2]vlan 20   //添加购销部对应VLAN20
+[LSW2-vlan20]quit
+//归端口
+[LSW2]interfaceGigabitEthernet 0/0/1  
+[LSW2-GigabitEthernet0/0/1]port link-type trunk  //将该端口归到trunk
+[LSW2-GigabitEthernet0/0/1]port trunk allow-pass vlan 10 20
+[LSW2-GigabitEthernet0/0/1]quit
+[LSW2]interface GigabitEthernet 0/0/3
+[LSW2-GigabitEthernet0/0/3]port link-type access
+[LSW2-GigabitEthernet0/0/3]port default vlan 20  //将该端口划归到VLAN20
+[LSW2-GigabitEthernet0/0/3]quit
+[LSW2]interface GigabitEthernet 0/0/4
+[LSW2-GigabitEthernet0/0/4]port link-type access
+[LSW2-GigabitEthernet0/0/4]port default vlan 20  //将该端口划归到VLAN20
+[LSW2-GigabitEthernet0/0/4]quit
+[LSW2]display vlan
+[LSW2]quit
+<LSW2>save

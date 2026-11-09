@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<script src="../../node_modules/echarts/dist/echarts.min.js"></script>
+<style>html,body{margin:0;padding:0;background:#ffffff;} #chart{width:100vw;height:100vh;}</style>
+</head><body><div id="chart"></div>
+<script>
+var ch = echarts.init(document.getElementById('chart'));
+ch.setOption({"textStyle": {"fontFamily": "Microsoft YaHei, 'PingFang SC', sans-serif", "color": "#37474f"}, "color": ["#2e7d32", "#f9a825", "#1e88e5", "#ff7043", "#66bb6a", "#26c6da", "#e53935", "#90a4ae"], "title": {"text": "第3年收入结构（万元）", "left": "center", "top": 12, "textStyle": {"fontSize": 18}}, "tooltip": {"trigger": "item", "formatter": "{b}: {c}万元 ({d}%)"}, "legend": {"bottom": 10, "textStyle": {"fontSize": 13}}, "series": [{"type": "pie", "roseType": "radius", "radius": ["18%", "68%"], "center": ["50%", "52%"], "data": [{"name": "农资渠道佣金", "value": 55}, {"name": "品牌精准推广", "value": 45}, {"name": "政府项目采购", "value": 50}, {"name": "增值会员服务", "value": 30}], "label": {"formatter": "{b}\n{d}%", "fontSize": 12}, "itemStyle": {"borderRadius": 6, "borderColor": "#fff", "borderWidth": 2}}]});
+</script></body></html>

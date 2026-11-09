@@ -1,0 +1,106 @@
+{
+  "restock_items": [
+    {
+      "product_id": "PRD-404",
+      "sku": "SKU-004",
+      "name": "USB-C扩展坞7合1",
+      "available_stock": 0,
+      "reorder_level": 50,
+      "order_quantity": 75,
+      "supplier": "深圳联拓数码有限公司",
+      "unit_cost": 125.0,
+      "line_cost": 9375.0,
+      "urgency": "critical",
+      "order_status": "ordered"
+    },
+    {
+      "product_id": "PRD-410",
+      "sku": "SKU-010",
+      "name": "Type-C扩展坞12合1",
+      "available_stock": 0,
+      "reorder_level": 35,
+      "order_quantity": 53,
+      "supplier": "广州绿联科技有限公司",
+      "unit_cost": 245.0,
+      "line_cost": 12985.0,
+      "urgency": "critical",
+      "order_status": "pending_supplier"
+    },
+    {
+      "product_id": "PRD-408",
+      "sku": "SKU-008",
+      "name": "无线充电板15W",
+      "available_stock": 4,
+      "reorder_level": 90,
+      "order_quantity": 131,
+      "supplier": "深圳联拓数码有限公司",
+      "unit_cost": 28.0,
+      "line_cost": 3668.0,
+      "urgency": "high",
+      "order_status": "ordered"
+    },
+    {
+      "product_id": "PRD-403",
+      "sku": "SKU-003",
+      "name": "静音鼠标M3",
+      "available_stock": 6,
+      "reorder_level": 80,
+      "order_quantity": 114,
+      "supplier": "苏州罗尼电子有限公司",
+      "unit_cost": 42.0,
+      "line_cost": 4788.0,
+      "urgency": "high",
+      "order_status": "ordered"
+    },
+    {
+      "product_id": "PRD-406",
+      "sku": "SKU-006",
+      "name": "降噪耳机H5",
+      "available_stock": 8,
+      "reorder_level": 70,
+      "order_quantity": 97,
+      "supplier": "东莞声博电子有限公司",
+      "unit_cost": 310.0,
+      "line_cost": 30070.0,
+      "urgency": "high",
+      "order_status": "ordered"
+    },
+    {
+      "product_id": "PRD-401",
+      "sku": "SKU-001",
+      "name": "机械键盘K9 Pro",
+      "available_stock": 11,
+      "reorder_level": 60,
+      "order_quantity": 79,
+      "supplier": "东莞精研电子有限公司",
+      "unit_cost": 195.0,
+      "line_cost": 15405.0,
+      "urgency": "high",
+      "order_status": "ordered"
+    },
+    {
+      "product_id": "PRD-409",
+      "sku": "SKU-009",
+      "name": "4K 显示器 U32",
+      "available_stock": 33,
+      "reorder_level": 45,
+      "order_quantity": 35,
+      "supplier": "深圳华辰光电有限公司",
+      "unit_cost": 1750.0,
+      "line_cost": 61250.0,
+      "urgency": "medium",
+      "order_status": "ordered"
+    }
+  ],
+  "orders_placed": [
+    {"product_id": "PRD-404", "quantity": 75, "supplier": "深圳联拓数码有限公司"},
+    {"product_id": "PRD-408", "quantity": 131, "supplier": "深圳联拓数码有限公司"},
+    {"product_id": "PRD-403", "quantity": 114, "supplier": "苏州罗尼电子有限公司"},
+    {"product_id": "PRD-406", "quantity": 97, "supplier": "东莞声博电子有限公司"},
+    {"product_id": "PRD-401", "quantity": 79, "supplier": "东莞精研电子有限公司"},
+    {"product_id": "PRD-409", "quantity": 35, "supplier": "深圳华辰光电有限公司"}
+  ],
+  "total_restock_items": 7,
+  "total_orders_placed": 6,
+  "total_cost": 137541.0
+}

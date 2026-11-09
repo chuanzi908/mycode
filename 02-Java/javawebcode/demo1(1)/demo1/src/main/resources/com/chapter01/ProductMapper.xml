@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chapter01.ProductMapper">
+
+    <select id="findAll" resultType="com.entity.Product">
+        SELECT * FROM product
+    </select>
+
+    <select id="findById" parameterType="int" resultType="com.entity.Product">
+        SELECT * FROM product WHERE id = #{id}
+    </select>
+
+    <insert id="addProduct" parameterType="com.entity.Product"
+            useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO product(name, price, stock, description)
+        VALUES(#{name}, #{price}, #{stock}, #{description})
+    </insert>
+
+    <update id="updateProduct" parameterType="com.entity.Product">
+        UPDATE product SET name = #{name}, price = #{price}, stock = #{stock},
+                           description = #{description}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteProduct" parameterType="int">
+        DELETE FROM product WHERE id = #{id}
+    </delete>
+
+    <select id="findByNameLike" parameterType="string" resultType="com.entity.Product">
+        SELECT * FROM product WHERE name LIKE CONCAT('%', #{value}, '%')
+    </select>
+
+</mapper>

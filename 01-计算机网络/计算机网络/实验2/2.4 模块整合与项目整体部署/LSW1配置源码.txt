@@ -1,0 +1,99 @@
+<Huawei>sys
+[Huawei]sysname LSW1
+[LSW1]undo info-center enable 
+[LSW1]interface Vlanif 1
+[LSW1-Vlanif1]ip add 192.168.1.1 24
+[LSW1-Vlanif1]quit
+[LSW1]telnet server enable 
+[LSW1]user-interface vty  0 4
+[LSW1-ui-vty0-4]authentication-mode aaa
+[LSW1-ui-vty0-4]protocol inbound telnet
+[LSW1-ui-vty0-4]quit
+[LSW1]aaa
+[LSW1-aaa]local-user user01 password cipher huawei123
+[LSW1-aaa]local-user user01 privilege level 15
+[LSW1-aaa]local-user user01 service-type telnet
+[LSW1-aaa]quit
+
+[LSW1]vlan batch 100 60 10 20
+[LSW1]interface g0/0/2
+[LSW1-GigabitEthernet0/0/2]port link-type trunk 
+[LSW1-GigabitEthernet0/0/2]port trunk allow-pass vlan 10 20
+[LSW1-GigabitEthernet0/0/2]quit
+[LSW1]interface g0/0/3
+[LSW1-GigabitEthernet0/0/3]port link-type access 
+[LSW1-GigabitEthernet0/0/3]port default vlan 100
+[LSW1-GigabitEthernet0/0/3]quit
+[LSW1]interface g0/0/4
+[LSW1-GigabitEthernet0/0/4]port link-type access 
+[LSW1-GigabitEthernet0/0/4]port default vlan 60
+[LSW1-GigabitEthernet0/0/4]quit
+[LSW1]interface g0/0/5
+[LSW1-GigabitEthernet0/0/5]port link-type access 
+[LSW1-GigabitEthernet0/0/5]port default vlan 10
+[LSW1-GigabitEthernet0/0/5]quit
+[LSW1]interface g0/0/6
+[LSW1-GigabitEthernet0/0/6]port link-type access 
+[LSW1-GigabitEthernet0/0/6]port default vlan 20
+[LSW1-GigabitEthernet0/0/6]quit
+[LSW1]interface Vlanif 100
+[LSW1-Vlanif100]ip add 172.16.100.254 24
+[LSW1-Vlanif100]quit
+[LSW1]interface Vlanif 60
+[LSW1-Vlanif60]ip ad 192.168.60.254 24
+[LSW1-Vlanif60]quit
+[LSW1]interface Vlanif 10
+[LSW1-Vlanif10]ip add 192.168.10.254 24
+[LSW1-Vlanif10]quit
+[LSW1]interface Vlanif 20
+[LSW1-Vlanif20]ip add 192.168.20.254 24
+[LSW1-Vlanif20]quit
+[LSW1]dis vlan
+The total number of vlans is : 5
+--------------------------------------------------------------------------------
+U: Up;         D: Down;         TG: Tagged;         UT: Untagged;
+MP: Vlan-mapping;               ST: Vlan-stacking;
+#: ProtocolTransparent-vlan;    *: Management-vlan;
+--------------------------------------------------------------------------------
+
+VID  Type    Ports                                                          
+--------------------------------------------------------------------------------
+1    common  UT:GE0/0/1(U)      GE0/0/2(U)      GE0/0/7(D)      GE0/0/8(D)      
+                GE0/0/9(D)      GE0/0/10(D)     GE0/0/11(D)     GE0/0/12(D)     
+                GE0/0/13(D)     GE0/0/14(D)     GE0/0/15(D)     GE0/0/16(D)     
+                GE0/0/17(D)     GE0/0/18(D)     GE0/0/19(D)     GE0/0/20(D)     
+                GE0/0/21(D)     GE0/0/22(D)     GE0/0/23(D)     GE0/0/24(D)     
+
+10   common  UT:GE0/0/5(U)                                                      
+             TG:GE0/0/2(U)                                                      
+
+20   common  UT:GE0/0/6(U)                                                      
+
+             TG:GE0/0/2(U)                                                      
+
+60   common  UT:GE0/0/4(U)                                                      
+
+100  common  UT:GE0/0/3(U)                                                      
+
+
+VID  Status  Property      MAC-LRN Statistics Description      
+--------------------------------------------------------------------------------
+
+1    enable  default       enable  disable    VLAN 0001                         
+10   enable  default       enable  disable    VLAN 0010                         
+20   enable  default       enable  disable    VLAN 0020                         
+60   enable  default       enable  disable    VLAN 0060                         
+100  enable  default       enable  disable    VLAN 0100                         
+[LSW1] User interface con0 is available
+
+
+
+Please Press ENTER.
+
+<LSW1>save
+The current configuration will be written to the device.
+Are you sure to continue?[Y/N]y
+Info: Please input the file name ( *.cfg, *.zip ) [vrpcfg.zip]:
+Now saving the current configuration to the slot 0..
+Save the configuration successfully.
+<LSW1>

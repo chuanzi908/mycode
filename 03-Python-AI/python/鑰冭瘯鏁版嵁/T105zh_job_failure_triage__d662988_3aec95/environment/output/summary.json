@@ -1,0 +1,41 @@
+{
+  "failed_jobs": [
+    {
+      "job_id": "JOB-003",
+      "job_name": "业务数据同步",
+      "error_summary": "数据库副本 db-replica-03.internal:5432 连接超时（DB_CONN_TIMEOUT），业务数据无法同步，最近3次运行全部失败",
+      "first_failure_time": "2026-05-10T01:30:01Z",
+      "failure_count": 3,
+      "related_tickets": ["TK-003", "TK-007"],
+      "impact_scope": "业务数据同步中断，CRM系统客户跟进记录和订单状态停止更新（停留在昨日状态），业务数据看板所有核心指标（GMV、DAU、新增用户数）显示为0，影响客户成功和数据分析团队的正常工作",
+      "suggested_priority": "critical",
+      "priority_reason": "数据库连接持续失败（3次连续失败，跨度约1小时），多个核心业务系统（CRM、数据看板）已受影响，数据实时性直接影响业务决策，且任务每30分钟运行一次，问题仍在持续扩大"
+    },
+    {
+      "job_id": "JOB-005",
+      "job_name": "周报自动生成",
+      "error_summary": "Java堆内存溢出（OutOfMemoryError），销售部门周报在数据聚合阶段内存耗尽（已分配4096MB，请求额外512MB失败），部分输出被丢弃",
+      "first_failure_time": "2026-05-05T08:00:00Z",
+      "failure_count": 1,
+      "related_tickets": ["TK-002", "TK-006"],
+      "impact_scope": "本周销售部门周报未能自动生成并发送，销售团队无法通过邮件获取本周业务汇总；报表系统内存资源不足同时导致财务月报等大型报告手动导出失败，影响销售和财务部门正常业务运营",
+      "suggested_priority": "high",
+      "priority_reason": "周报缺失影响销售团队信息获取，财务月报导出失败直接阻碍月度结算流程；报表系统内存配置不足是根本原因，若不解决将在下次（5月12日）周报生成时再次失败"
+    },
+    {
+      "job_id": "JOB-007",
+      "job_name": "系统通知推送",
+      "error_summary": "SMTP邮件中继服务器 smtp-relay.internal:587 不可达（连接被拒绝），累计约298条系统通知邮件未能发送",
+      "first_failure_time": "2026-05-09T18:00:00Z",
+      "failure_count": 3,
+      "related_tickets": ["TK-005"],
+      "impact_scope": "系统通知邮件（包括审批通知、待办提醒等）持续无法发送，自2026-05-09T18:00起共计298条通知积压未送达，多个审批流程因通知缺失而无法正常推进，影响人力资源等部门业务",
+      "suggested_priority": "high",
+      "priority_reason": "SMTP服务器持续不可达已超过12小时（3次运行全部失败），审批通知无法推送严重阻碍人力资源等部门的日常流程，属于用户可见的持续性故障，需紧急恢复SMTP中继服务"
+    }
+  ],
+  "unrelated_tickets": ["TK-001", "TK-004", "TK-008", "TK-009", "TK-010"],
+  "total_failed_jobs": 3,
+  "total_related_tickets": 5,
+  "total_unrelated_tickets": 5
+}

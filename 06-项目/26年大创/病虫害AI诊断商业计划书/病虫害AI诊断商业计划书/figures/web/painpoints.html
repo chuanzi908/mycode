@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<script src="../../node_modules/echarts/dist/echarts.min.js"></script>
+<style>html,body{margin:0;padding:0;background:#ffffff;} #chart{width:100vw;height:100vh;}</style>
+</head><body><div id="chart"></div>
+<script>
+var ch = echarts.init(document.getElementById('chart'));
+ch.setOption({"textStyle": {"fontFamily": "Microsoft YaHei, 'PingFang SC', sans-serif", "color": "#37474f"}, "color": ["#2e7d32", "#f9a825", "#1e88e5", "#ff7043", "#66bb6a", "#26c6da", "#e53935", "#90a4ae"], "title": {"text": "小农户病虫害防治核心痛点（调研占比）", "left": "center", "top": 12, "textStyle": {"fontSize": 18}}, "tooltip": {"trigger": "axis", "axisPointer": {"type": "shadow"}}, "grid": {"left": 250, "right": 70, "top": 50, "bottom": 30}, "xAxis": {"type": "value", "max": 100, "axisLabel": {"formatter": "{value}%"}}, "yAxis": {"type": "category", "data": ["现有农业APP门槛过高、用不起来", "病虫害凭经验识别不准", "从未关注过农业信息渠道", "常错过防治最佳窗口期", "曾因用药错误造成损失"], "axisLabel": {"fontSize": 13}}, "series": [{"name": "占比", "type": "bar", "data": [73, 68, 66, 47, 41], "barWidth": "58%", "itemStyle": {"borderRadius": [0, 6, 6, 0], "color": {"type": "linear", "x": 0, "y": 0, "x2": 1, "y2": 0, "colorStops": [{"offset": 0, "color": "#66bb6a"}, {"offset": 1, "color": "#2e7d32"}]}}, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 13}}]});
+</script></body></html>

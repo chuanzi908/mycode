@@ -1,0 +1,119 @@
+<LSW1>display cu
+#
+sysname LSW1
+#
+vlan batch 10 20
+#
+stp mode rstp
+stp instance 0 priority 4096
+#
+cluster enable
+ntdp enable
+ndp enable
+#
+drop illegal-mac alarm
+#
+dhcp enable
+#
+diffserv domain default
+#
+drop-profile default
+#
+ip pool vlan10
+ gateway-list 192.168.10.252
+ network 192.168.10.0 mask 255.255.255.0
+ excluded-ip-address 192.168.10.253
+ lease day 30 hour 0 minute 0
+ dns-list 8.8.8.8
+#
+ip pool vlan20
+ gateway-list 192.168.20.252
+ network 192.168.20.0 mask 255.255.255.0
+ excluded-ip-address 192.168.20.253
+ lease day 30 hour 0 minute 0
+ dns-list 8.8.8.8
+#
+aaa
+ authentication-scheme default
+ authorization-scheme default
+ accounting-scheme default
+ domain default
+ domain default_admin
+ local-user admin password simple admin
+ local-user admin service-type http
+#
+interface Vlanif1
+#
+interface Vlanif10
+ ip address 192.168.10.254 255.255.255.0
+ vrrp vrid 1 virtual-ip 192.168.10.252
+ vrrp vrid 1 priority 120
+ vrrp vrid 1 preempt-mode timer delay 10
+ dhcp select global
+#
+interface Vlanif20
+ ip address 192.168.20.254 255.255.255.0
+ vrrp vrid 2 virtual-ip 192.168.20.252
+ dhcp select global
+#
+interface MEth0/0/1
+#
+interface GigabitEthernet0/0/1
+ port link-type trunk
+ port trunk allow-pass vlan 2 to 4094
+#
+interface GigabitEthernet0/0/2
+#
+interface GigabitEthernet0/0/3
+#
+interface GigabitEthernet0/0/4
+#
+interface GigabitEthernet0/0/5
+#
+interface GigabitEthernet0/0/6
+#
+interface GigabitEthernet0/0/7
+#
+interface GigabitEthernet0/0/8
+#
+interface GigabitEthernet0/0/9
+#
+interface GigabitEthernet0/0/10
+#
+interface GigabitEthernet0/0/11
+#
+interface GigabitEthernet0/0/12
+#
+interface GigabitEthernet0/0/13
+#
+interface GigabitEthernet0/0/14
+#
+interface GigabitEthernet0/0/15
+#
+interface GigabitEthernet0/0/16
+#
+interface GigabitEthernet0/0/17
+#
+interface GigabitEthernet0/0/18
+#
+interface GigabitEthernet0/0/19
+#
+interface GigabitEthernet0/0/20
+#
+interface GigabitEthernet0/0/21
+#
+interface GigabitEthernet0/0/22
+#
+interface GigabitEthernet0/0/23
+#
+interface GigabitEthernet0/0/24
+ port link-type trunk
+ port trunk allow-pass vlan 2 to 4094
+#
+interface NULL0
+#
+user-interface con 0
+user-interface vty 0 4
+#
+return
+<LSW1> 

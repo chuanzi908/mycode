@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:#fff;font-family:'Microsoft YaHei','PingFang SC',sans-serif;-webkit-font-smoothing:antialiased;}
+.wrap{width:1160px;padding:34px 38px 22px;}
+.h1{font-size:25px;font-weight:700;color:#1c3d2e;letter-spacing:.3px;}
+.sub{font-size:13px;color:#778b82;margin-top:9px;padding-left:1px;}
+.foot{margin-top:20px;padding-top:12px;border-top:1px solid #dde2e0;
+      font-size:11.5px;color:#778b82;line-height:1.7;}
+
+.bd{border:1px solid #dde2e0;border-radius:14px;padding:20px 22px 16px;margin-top:22px;}
+.tag{font-size:12.5px;color:#778b82;letter-spacing:2px;margin-bottom:14px;}
+.grid{display:grid;grid-template-columns:1fr 372px;gap:0 34px;}
+.step{background:#f4f7f5;border-radius:10px;padding:14px 18px 14px 20px;
+      border-left:4px solid #1c3d2e;position:relative;}
+.step h3{font-size:16.5px;color:#1c3d2e;font-weight:700;}
+.step p{font-size:12.5px;color:#3a4a44;line-height:1.72;margin-top:5px;}
+.arrow{text-align:center;color:#dde2e0;font-size:15px;line-height:1;margin:9px 0;}
+.arrow span{font-size:11.5px;color:#778b82;margin-left:8px;letter-spacing:.2px;}
+.side{display:flex;flex-direction:column;justify-content:space-between;gap:16px;}
+.mini{background:#fff;border:1px solid #dde2e0;border-radius:10px;padding:15px 17px;}
+.mini h4{font-size:14.5px;color:#1c3d2e;font-weight:700;}
+.mini p{font-size:12px;color:#3a4a44;line-height:1.7;margin-top:5px;}
+.mini .ix{font-size:12px;color:#4a7c59;font-weight:700;margin-right:6px;}
+.loop{margin-top:14px;background:#edf1ee;border-radius:9px;padding:11px 16px;
+      font-size:12.5px;color:#2e7d32;font-weight:700;text-align:center;}
+.hint{margin-top:9px;font-size:11.5px;color:#778b82;}
+.pill{display:inline-block;background:#fff;border:1px solid #dde2e0;border-radius:20px;
+      padding:2px 11px;font-size:11.5px;color:#4a7c59;margin-right:6px;}
+
+</style></head><body><div class="wrap">
+<div class="h1">拍照即诊断 · 诊断即给方案 —— 四功能闭环</div>
+<div class="sub">主链路 3 步以内完成；搜索查询与预防推送为补充入口，执行反馈回流构成自增强闭环</div>
+
+<div class="bd">
+  <div class="tag">主 链 路</div>
+  <div class="grid">
+    <div>
+      <div class="step">
+        <h3>① 农户拍照上传</h3>
+        <p>拍摄作物异常部位，选择作物（可自动推荐）<br>全程 3 步以内完成，零学习成本</p>
+      </div>
+      <div class="arrow">▼<span>进入图像识别</span></div>
+      <div class="step">
+        <h3>② AI 图像识别 · 置信度判定</h3>
+        <p>高置信度：直接输出病虫害种类与诊断结论<br>低置信度：提示补拍关键部位，仍不达标转人工复核，绝不“硬出方案”</p>
+      </div>
+      <div class="arrow">▼<span>识别与检索结果统一进入方案匹配</span></div>
+      <div class="step">
+        <h3>③ 防治方案匹配</h3>
+        <p>用什么药（有效成分与商品名）、用多少（亩用量/稀释倍数）<br>什么时候打、安全间隔期与注意事项；绿色防控优先</p>
+      </div>
+      <div class="arrow">▼</div>
+      <div class="step">
+        <h3>④ 执行与反馈</h3>
+        <p>防治效果记录 → 样本回流 → 专家标注 → 模型持续优化</p>
+      </div>
+    </div>
+    <div class="side">
+      <div class="mini">
+        <h4><span class="ix">补充入口</span>搜索查询</h4>
+        <p>已知病虫害名称或症状关键词检索（支持模糊词、方言词映射），
+           服务农资店店员与农技员的“查证”场景</p>
+      </div>
+      <div class="mini">
+        <h4><span class="ix">前置引导</span>预防推送</h4>
+        <p>地理定位 + 作物种植结构 + 物候期 → 当地当季高发病虫害预警，
+           防治窗口期前 7–15 天提醒，变“被动求医”为“主动预防”</p>
+      </div>
+      <div class="mini">
+        <h4><span class="ix">闭环关键字</span>自增强</h4>
+        <p>使用越多 → 样本回流越多 → 模型越准 → 用户越多</p>
+      </div>
+    </div>
+  </div>
+  <div class="loop">识别结果 → 用药反馈 → 样本标注回流，闭环自增强</div>
+</div>
+
+<div class="foot">主链路（实线）：拍照识别 → 防治建议；补充入口（浅色）：搜索查询、预防推送。识别结果与检索、预警结果统一汇入防治方案匹配，用药反馈与样本回流再优化模型。</div>
+</div></body></html>

@@ -1,0 +1,37 @@
+<Huawei>sys
+[Huawei]undo info-center enable 
+[Huawei]sysname LSW5
+一、划VLAN:
+[LSW5]vlan batch 40 50
+二、归端口：
+[LSW5]port-group group-member Ethernet 0/0/1 to Ethernet 0/0/10
+[LSW5-port-group]port link-type access
+[LSW5-port-group]port default vlan 40
+[LSW5-port-group]q
+[LSW5]port-group group-member Ethernet 0/0/11 to Ethernet 0/0/20
+[LSW5-port-group]port link-type access 
+[LSW5-port-group]port default vlan 50
+[LSW5-port-group]quit
+[LSW5]interface g0/0/1
+[LSW5-GigabitEthernet0/0/1]port link-type trunk
+[LSW5-GigabitEthernet0/0/1]port trunk allow-pass vlan 40 50
+[LSW5-GigabitEthernet0/0/1]quit
+[LSW5]interface g0/0/2
+[LSW5-GigabitEthernet0/0/2]port link-type trunk
+[LSW5-GigabitEthernet0/0/2]port trunk allow-pass vlan 40 50
+[LSW5-GigabitEthernet0/0/2]quit
+[LSW5]interface Vlanif 1
+[LSW5-Vlanif1]ip address 192.168.1.5 24
+[LSW5-Vlanif1]quit
+[LSW5]ip route-static 0.0.0.0 0.0.0.0 192.168.1.252
+三、生成树配置：
+[LSW5]stp enable 
+[LSW5]stp mode mstp
+[LSW5]stp region-configuration 
+[LSW5-mst-region]region-name RG1
+[LSW5-mst-region]instance 1 vlan 10 20 30
+[LSW5-mst-region]instance 2 vlan  40 50
+[LSW5-mst-region]active region-configuration 
+[LSW5-mst-region]quit
+[LSW5]quit
+<LSW5>save

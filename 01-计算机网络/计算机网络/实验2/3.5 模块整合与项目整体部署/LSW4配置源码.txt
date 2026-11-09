@@ -1,0 +1,34 @@
+<Huawei>sys
+[Huawei]sysname LSW4
+[LSW4]undo info-center enable 
+一、划VLAN:
+[LSW4]vlan 30
+[LSW4-vlan30]quit
+二、归端口：
+[LSW4]port-group group-member Ethernet 0/0/1 to Ethernet 0/0/10
+[LSW4-port-group]port link-type access 
+[LSW4-port-group]port default vlan 30
+[LSW4-port-group]q
+[LSW4]interface g0/0/1
+[LSW4-GigabitEthernet0/0/1]port link-type trunk
+[LSW4-GigabitEthernet0/0/1]port trunk allow-pass vlan 30
+[LSW4-GigabitEthernet0/0/1]q
+[LSW4]interface g0/0/2
+[LSW4-GigabitEthernet0/0/2]port link-type trunk
+[LSW4-GigabitEthernet0/0/2]port trunk allow-pass vlan 30
+[LSW4-GigabitEthernet0/0/2]quit
+[LSW4]interface Vlanif 1
+[LSW4-Vlanif1]ip address 192.168.1.4 24
+[LSW4-Vlanif1]quit
+[LSW4]ip route-static 0.0.0.0 0.0.0.0 192.168.1.252
+三、生成树配置：
+[LSW4]stp enable 
+[LSW4]stp mode mstp
+[LSW4]stp region-configuration 
+[LSW4-mst-region]region-name RG1
+[LSW4-mst-region]instance 1 vlan 10 20 30
+[LSW4-mst-region]instance 2 vlan  40 50
+[LSW4-mst-region]active region-configuration 
+[LSW4-mst-region]quit
+[LSW4]quit
+<LSW4>save

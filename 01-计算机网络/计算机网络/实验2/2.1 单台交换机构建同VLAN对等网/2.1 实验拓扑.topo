@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UNICODE" ?>
+<topo version="1.3.00.100">
+    <devices>
+        <dev id="E3AA3516-EE39-4fc7-9435-3195E0AEFF2E" name="GX2(购销2)" poe="0" model="PC" settings=" -simpc_ip 192.168.10.2  -simpc_mask 255.255.255.0  -simpc_gateway 0.0.0.0  -simpc_mac 54-89-98-BD-67-01  -simpc_mc_dstip 0.0.0.0  -simpc_mc_dstmac 00-00-00-00-00-00  -simpc_dns1 0.0.0.0  -simpc_dns2 0.0.0.0  -simpc_ipv6 ::  -simpc_prefix 128  -simpc_gatewayv6 ::  -simpc_dhcp_state 0  -simpc_dhcpv6_state 0  -simpc_dns_auto_state 0  -simpc_igmp_version 1  -simpc_group_ip_start 0.0.0.0  -simpc_src_ip_start 0.0.0.0  -simpc_group_num 0  -simpc_group_step 0  -simpc_src_num 0  -simpc_src_step 0  -simpc_type MODE_IS_INCLUDE " system_mac="54-89-98-BD-67-01" com_port="0" bootmode="0" cx="277.000000" cy="109.000000" edit_left="367" edit_top="130">
+            <slot number="slot17" isMainBoard="1">
+                <interface sztype="Ethernet" interfacename="Ethernet" count="1" />
+            </slot>
+        </dev>
+        <dev id="9CFCDF2D-F44F-4e43-99E0-0C1DBA0DF9A5" name="GX3(购销3)" poe="0" model="PC" settings=" -simpc_ip 192.168.10.3  -simpc_mask 255.255.255.0  -simpc_gateway 0.0.0.0  -simpc_mac 54-89-98-63-6F-19  -simpc_mc_dstip 0.0.0.0  -simpc_mc_dstmac 00-00-00-00-00-00  -simpc_dns1 0.0.0.0  -simpc_dns2 0.0.0.0  -simpc_ipv6 ::  -simpc_prefix 128  -simpc_gatewayv6 ::  -simpc_dhcp_state 0  -simpc_dhcpv6_state 0  -simpc_dns_auto_state 0  -simpc_igmp_version 1  -simpc_group_ip_start 0.0.0.0  -simpc_src_ip_start 0.0.0.0  -simpc_group_num 0  -simpc_group_step 0  -simpc_src_num 0  -simpc_src_step 0  -simpc_type MODE_IS_INCLUDE " system_mac="54-89-98-63-6F-19" com_port="0" bootmode="0" cx="86.000000" cy="276.000000" edit_left="55" edit_top="289">
+            <slot number="slot17" isMainBoard="1">
+                <interface sztype="Ethernet" interfacename="Ethernet" count="1" />
+            </slot>
+        </dev>
+        <dev id="76AB1826-C5F2-4540-9051-92F25B6A6F11" name="GX4(购销4)" poe="0" model="PC" settings=" -simpc_ip 192.168.10.4  -simpc_mask 255.255.255.0  -simpc_gateway 0.0.0.0  -simpc_mac 54-89-98-86-7A-B0  -simpc_mc_dstip 0.0.0.0  -simpc_mc_dstmac 00-00-00-00-00-00  -simpc_dns1 0.0.0.0  -simpc_dns2 0.0.0.0  -simpc_ipv6 ::  -simpc_prefix 128  -simpc_gatewayv6 ::  -simpc_dhcp_state 0  -simpc_dhcpv6_state 0  -simpc_dns_auto_state 0  -simpc_igmp_version 1  -simpc_group_ip_start 0.0.0.0  -simpc_src_ip_start 0.0.0.0  -simpc_group_num 0  -simpc_group_step 0  -simpc_src_num 0  -simpc_src_step 0  -simpc_type MODE_IS_INCLUDE " system_mac="54-89-98-86-7A-B0" com_port="0" bootmode="0" cx="283.000000" cy="273.000000" edit_left="373" edit_top="298">
+            <slot number="slot17" isMainBoard="1">
+                <interface sztype="Ethernet" interfacename="Ethernet" count="1" />
+            </slot>
+        </dev>
+        <dev id="791C926D-A2C6-436f-A3DF-EBF64C232C2C" name="GX1(购销1)" poe="0" model="PC" settings=" -simpc_ip 192.168.10.1  -simpc_mask 255.255.255.0  -simpc_gateway 0.0.0.0  -simpc_mac 54-89-98-09-6D-70  -simpc_mc_dstip 0.0.0.0  -simpc_mc_dstmac 00-00-00-00-00-00  -simpc_dns1 0.0.0.0  -simpc_dns2 0.0.0.0  -simpc_ipv6 ::  -simpc_prefix 128  -simpc_gatewayv6 ::  -simpc_dhcp_state 0  -simpc_dhcpv6_state 0  -simpc_dns_auto_state 0  -simpc_igmp_version 1  -simpc_group_ip_start 0.0.0.0  -simpc_src_ip_start 0.0.0.0  -simpc_group_num 0  -simpc_group_step 0  -simpc_src_num 0  -simpc_src_step 0  -simpc_type MODE_IS_INCLUDE " system_mac="54-89-98-09-6D-70" com_port="0" bootmode="0" cx="84.000000" cy="107.000000" edit_left="53" edit_top="119">
+            <slot number="slot17" isMainBoard="1">
+                <interface sztype="Ethernet" interfacename="Ethernet" count="1" />
+            </slot>
+        </dev>
+        <dev id="F2D6833D-D41C-4be3-BE15-8E03DF7BD69F" name="LSW3" poe="0" model="S3700" settings="" system_mac="4C-1F-CC-F8-1D-D5" com_port="2000" bootmode="0" cx="185.000000" cy="186.000000" edit_left="212" edit_top="240">
+            <slot number="slot17" isMainBoard="1">
+                <interface sztype="Ethernet" interfacename="Ethernet" count="22" />
+                <interface sztype="Ethernet" interfacename="GE" count="2" />
+            </slot>
+        </dev>
+        <dev id="F9B84236-D1F4-4446-8E35-509EF7C32215" name="R1" poe="0" model="Router" settings="" system_mac="54-89-98-3F-45-6C" com_port="2001" bootmode="0" cx="375.000000" cy="186.000000" edit_left="402" edit_top="240">
+            <slot number="slot17" isMainBoard="1">
+                <interface sztype="Ethernet" interfacename="Ethernet" count="2" />
+                <interface sztype="Ethernet" interfacename="GE" count="4" />
+                <interface sztype="Serial" interfacename="Serial" count="4" />
+            </slot>
+        </dev>
+    </devices>
+    <lines>
+        <line srcDeviceID="791C926D-A2C6-436f-A3DF-EBF64C232C2C" destDeviceID="F2D6833D-D41C-4be3-BE15-8E03DF7BD69F">
+            <interfacePair lineName="Copper" srcIndex="0" srcBoundRectIsMoved="1" srcBoundRect_X="145.014542" srcBoundRect_Y="160.605423" srcOffset_X="956.000000" srcOffset_Y="536.000000" tarIndex="0" tarBoundRectIsMoved="1" tarBoundRect_X="177.985458" tarBoundRect_Y="186.394577" tarOffset_X="-67.000000" tarOffset_Y="8.000000" />
+        </line>
+        <line srcDeviceID="9CFCDF2D-F44F-4e43-99E0-0C1DBA0DF9A5" destDeviceID="F2D6833D-D41C-4be3-BE15-8E03DF7BD69F">
+            <interfacePair lineName="Copper" srcIndex="0" srcBoundRectIsMoved="1" srcBoundRect_X="144.953400" srcBoundRect_Y="273.951447" srcOffset_X="950.000000" srcOffset_Y="408.000000" tarIndex="1" tarBoundRectIsMoved="1" tarBoundRect_X="180.046600" tarBoundRect_Y="242.048538" tarOffset_X="-71.000000" tarOffset_Y="-14.000000" />
+        </line>
+        <line srcDeviceID="E3AA3516-EE39-4fc7-9435-3195E0AEFF2E" destDeviceID="F2D6833D-D41C-4be3-BE15-8E03DF7BD69F">
+            <interfacePair lineName="Copper" srcIndex="0" srcBoundRectIsMoved="1" srcBoundRect_X="270.884399" srcBoundRect_Y="163.716324" srcOffset_X="839.000000" srcOffset_Y="504.000000" tarIndex="2" tarBoundRectIsMoved="1" tarBoundRect_X="245.115601" tarBoundRect_Y="185.283676" tarOffset_X="-1.000000" tarOffset_Y="3.000000" />
+        </line>
+        <line srcDeviceID="76AB1826-C5F2-4540-9051-92F25B6A6F11" destDeviceID="F2D6833D-D41C-4be3-BE15-8E03DF7BD69F">
+            <interfacePair lineName="Copper" srcIndex="0" srcBoundRectIsMoved="1" srcBoundRect_X="277.705872" srcBoundRect_Y="271.330719" srcOffset_X="840.000000" srcOffset_Y="374.000000" tarIndex="3" tarBoundRectIsMoved="1" tarBoundRect_X="244.294128" tarBoundRect_Y="241.669266" tarOffset_X="5.000000" tarOffset_Y="-11.000000" />
+        </line>
+        <line srcDeviceID="F9B84236-D1F4-4446-8E35-509EF7C32215" destDeviceID="F2D6833D-D41C-4be3-BE15-8E03DF7BD69F">
+            <interfacePair lineName="Copper" srcIndex="2" srcBoundRectIsMoved="1" srcBoundRect_X="358.816223" srcBoundRect_Y="213.000000" srcOffset_X="-27.000000" srcOffset_Y="4.000000" tarIndex="22" tarBoundRectIsMoved="1" tarBoundRect_X="255.183762" tarBoundRect_Y="213.000000" tarOffset_X="-12.000000" tarOffset_Y="4.000000" />
+        </line>
+    </lines>
+    <shapes />
+    <txttips>
+        <txttip left="16" top="8" right="583" bottom="84" content="2.1 单台交换机构建同 VLAN 对等网&#x0D;&#x0A;实验目标：&#x0D;&#x0A;1.实现以telnet方式远程登录(密码认证方式)交换机。&#x0D;&#x0A;2.同VLAN（VLAN 10）同网段（192.168.10.0/24）终端实现二层互访。" fontname="Consolas" fontstyle="0" editsize="120" txtcolor="-16777216" txtbkcolor="-8323200" charset="1" />
+        <txttip left="25" top="161" right="139" bottom="181" content="192.168.10.1" fontname="Consolas" fontstyle="0" editsize="120" txtcolor="-16777216" txtbkcolor="-8323200" charset="1" />
+        <txttip left="278" top="163" right="392" bottom="183" content="192.168.10.2" fontname="Consolas" fontstyle="0" editsize="120" txtcolor="-16777216" txtbkcolor="-8323200" charset="1" />
+        <txttip left="32" top="329" right="146" bottom="349" content="192.168.10.3" fontname="Consolas" fontstyle="0" editsize="120" txtcolor="-16777216" txtbkcolor="-8323200" charset="1" />
+        <txttip left="274" top="328" right="388" bottom="348" content="192.168.10.4" fontname="Consolas" fontstyle="0" editsize="120" txtcolor="-16777216" txtbkcolor="-8323200" charset="1" />
+    </txttips>
+</topo>

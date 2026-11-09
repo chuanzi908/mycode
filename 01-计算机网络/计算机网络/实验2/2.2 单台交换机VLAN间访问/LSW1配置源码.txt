@@ -1,0 +1,118 @@
+<Huawei>
+<Huawei>sys
+Enter system view, return user view with Ctrl+Z.
+[Huawei]undo info-c	
+[Huawei]undo info-center e	
+[Huawei]undo info-center enable 
+Info: Information center is disabled.
+[Huawei]sysname LSW1
+[LSW1]vlan batch 100 60 10 20
+Info: This operation may take a few seconds. Please wait for a moment...done.
+[LSW1]int	
+[LSW1]interface g0/0/3
+[LSW1-GigabitEthernet0/0/3]port link-type access
+[LSW1-GigabitEthernet0/0/3]port default vlan 100
+[LSW1-GigabitEthernet0/0/3]quit
+[LSW1]int	
+[LSW1]interface g0/0/4
+[LSW1-GigabitEthernet0/0/4]port ling-t	
+[LSW1-GigabitEthernet0/0/4]port link-type a	
+[LSW1-GigabitEthernet0/0/4]port link-type access 
+[LSW1-GigabitEthernet0/0/4]port def	
+[LSW1-GigabitEthernet0/0/4]port default vlan 60
+[LSW1-GigabitEthernet0/0/4]q
+[LSW1]int	
+[LSW1]interface g0/0/5
+[LSW1-GigabitEthernet0/0/5]port link-type a	
+[LSW1-GigabitEthernet0/0/5]port link-type access 
+[LSW1-GigabitEthernet0/0/5]port def	
+[LSW1-GigabitEthernet0/0/5]port default vlan 10
+[LSW1-GigabitEthernet0/0/5]q
+[LSW1]int	
+[LSW1]interface g0/0/6
+[LSW1-GigabitEthernet0/0/6]port link-t	
+[LSW1-GigabitEthernet0/0/6]port link-type a	
+[LSW1-GigabitEthernet0/0/6]port link-type access 
+[LSW1-GigabitEthernet0/0/6]port def	
+[LSW1-GigabitEthernet0/0/6]port default vlan 20
+[LSW1-GigabitEthernet0/0/6]q
+[LSW1]int	
+[LSW1]interface vlanif 100
+[LSW1-Vlanif100]ip address 172.16.100.254 24
+[LSW1-Vlanif100]q
+[LSW1]int	
+[LSW1]interface vl	
+[LSW1]interface Vlanif 60
+[LSW1-Vlanif60]ip add 192.168.60.254 24
+[LSW1-Vlanif60]q
+[LSW1]int	
+[LSW1]interface v	
+[LSW1]interface Vlanif 10
+[LSW1-Vlanif10]ip addres 192.168.10.254 24
+[LSW1-Vlanif10]q
+[LSW1]int	
+[LSW1]interface v	
+[LSW1]interface Vlanif 20
+[LSW1-Vlanif20]ip add 192.168.20.254 24
+[LSW1-Vlanif20]q
+[LSW1]dis vlan 
+The total number of vlans is : 5
+--------------------------------------------------------------------------------
+U: Up;         D: Down;         TG: Tagged;         UT: Untagged;
+MP: Vlan-mapping;               ST: Vlan-stacking;
+#: ProtocolTransparent-vlan;    *: Management-vlan;
+--------------------------------------------------------------------------------
+
+VID  Type    Ports                                                          
+--------------------------------------------------------------------------------
+1    common  UT:GE0/0/1(D)      GE0/0/2(D)      GE0/0/7(D)      GE0/0/8(D)      
+                GE0/0/9(D)      GE0/0/10(U)     GE0/0/11(D)     GE0/0/12(D)     
+                GE0/0/13(D)     GE0/0/14(D)     GE0/0/15(D)     GE0/0/16(D)     
+                GE0/0/17(D)     GE0/0/18(D)     GE0/0/19(D)     GE0/0/20(D)     
+                GE0/0/21(D)     GE0/0/22(D)     GE0/0/23(D)     GE0/0/24(D)     
+
+10   common  UT:GE0/0/5(U)                                                      
+
+20   common  UT:GE0/0/6(U)                                                      
+
+60   common  UT:GE0/0/4(U)                                                      
+
+100  common  UT:GE0/0/3(U)                                                      
+
+
+VID  Status  Property      MAC-LRN Statistics Description      
+--------------------------------------------------------------------------------
+
+1    enable  default       enable  disable    VLAN 0001                         
+10   enable  default       enable  disable    VLAN 0010                         
+20   enable  default       enable  disable    VLAN 0020                         
+60   enable  default       enable  disable    VLAN 0060                         
+100  enable  default       enable  disable    VLAN 0100                         
+[LSW1]int	
+[LSW1]interface v	
+[LSW1]interface Vlanif 1
+[LSW1-Vlanif1]ip add 192.168.1.1 24
+[LSW1-Vlanif1]q
+[LSW1]te	
+[LSW1]telnets	
+[LSW1]telnet s	
+[LSW1]telnet server e	
+[LSW1]telnet server enable 
+Info: The Telnet server has been enabled.
+[LSW1]user	
+[LSW1]user-int	
+[LSW1]user-interface vty 0 4
+[LSW1-ui-vty0-4]auth	
+[LSW1-ui-vty0-4]authentication-mode aaa
+[LSW1-ui-vty0-4]pro	
+[LSW1-ui-vty0-4]protocol in	
+[LSW1-ui-vty0-4]protocol inbound telnet
+[LSW1-ui-vty0-4]q
+[LSW1]aaa
+[LSW1-aaa]local-user user01 password cipher huawei123
+Info: Add a new user.
+[LSW1-aaa]local-user user01 privilege level 3
+[LSW1-aaa]local-user user01 service-type telnet
+[LSW1-aaa]quit
+[LSW1]quit
+<LSW1>save

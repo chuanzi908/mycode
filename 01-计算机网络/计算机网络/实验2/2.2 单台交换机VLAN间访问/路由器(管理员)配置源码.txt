@@ -1,0 +1,21 @@
+<Huawei>sys
+[Huawei]interface g0/0/0
+[Huawei-GigabitEthernet0/0/0]ip add 192.168.1.10 24
+[Huawei-GigabitEthernet0/0/0]quit
+[Huawei]ip route-static 0.0.0.0 0.0.0.0 192.168.1.1
+[Huawei]quit
+<Huawei>telnet 192.168.1.1
+Trying 192.168.1.1 ...
+Press CTRL+K to abort
+Connected to 192.168.1.1 ...
+
+
+Login authentication
+
+
+Username:user01
+Password:
+Info: The max number of VTY users is 5, and the number
+      of current VTY users on line is 1.
+      The current login time is 2024-11-06 22:12:17.
+<LSW1>

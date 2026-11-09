@@ -1,0 +1,186 @@
+{
+  "schema_version": 2,
+  "seed": 2026,
+  "rounds": [
+    {
+      "round": 1,
+      "weights": {
+        "valid": 1,
+        "bad_seq": 1,
+        "bad_ack": 1,
+        "duplicate": 1,
+        "rst": 1,
+        "bad_checksum": 1,
+        "wait": 1
+      },
+      "events": [
+        "ack.duplicate",
+        "ack.invalid",
+        "ack.progress",
+        "closed.syn_received",
+        "established.data",
+        "established.fin",
+        "flow.reset",
+        "last_ack.closed",
+        "parse.accept",
+        "parse.reject",
+        "syn_received.established",
+        "timer.retransmit"
+      ],
+      "new_events": [
+        "ack.duplicate",
+        "ack.invalid",
+        "ack.progress",
+        "closed.syn_received",
+        "established.data",
+        "established.fin",
+        "flow.reset",
+        "last_ack.closed",
+        "parse.accept",
+        "parse.reject",
+        "syn_received.established",
+        "timer.retransmit"
+      ],
+      "cumulative_events": 12
+    },
+    {
+      "round": 2,
+      "weights": {
+        "valid": 1,
+        "bad_seq": 2,
+        "bad_ack": 2,
+        "duplicate": 2,
+        "rst": 1,
+        "bad_checksum": 2,
+        "wait": 2
+      },
+      "events": [
+        "ack.duplicate",
+        "ack.invalid",
+        "ack.progress",
+        "closed.syn_received",
+        "established.data",
+        "established.fin",
+        "flow.reset",
+        "last_ack.closed",
+        "parse.accept",
+        "parse.reject",
+        "syn_received.established",
+        "timer.retransmit"
+      ],
+      "new_events": [],
+      "cumulative_events": 12
+    },
+    {
+      "round": 3,
+      "weights": {
+        "valid": 1,
+        "bad_seq": 3,
+        "bad_ack": 3,
+        "duplicate": 3,
+        "rst": 1,
+        "bad_checksum": 3,
+        "wait": 3
+      },
+      "events": [
+        "ack.duplicate",
+        "ack.invalid",
+        "ack.progress",
+        "closed.syn_received",
+        "established.data",
+        "established.fin",
+        "flow.reset",
+        "last_ack.closed",
+        "parse.accept",
+        "parse.reject",
+        "syn_received.established",
+        "timer.retransmit"
+      ],
+      "new_events": [],
+      "cumulative_events": 12
+    },
+    {
+      "round": 4,
+      "weights": {
+        "valid": 1,
+        "bad_seq": 4,
+        "bad_ack": 4,
+        "duplicate": 4,
+        "rst": 1,
+        "bad_checksum": 4,
+        "wait": 4
+      },
+      "events": [
+        "ack.duplicate",
+        "ack.invalid",
+        "ack.progress",
+        "closed.syn_received",
+        "established.data",
+        "established.fin",
+        "flow.reset",
+        "last_ack.closed",
+        "parse.accept",
+        "parse.reject",
+        "syn_received.established",
+        "timer.retransmit"
+      ],
+      "new_events": [],
+      "cumulative_events": 12
+    },
+    {
+      "round": 5,
+      "weights": {
+        "valid": 1,
+        "bad_seq": 5,
+        "bad_ack": 5,
+        "duplicate": 5,
+        "rst": 1,
+        "bad_checksum": 5,
+        "wait": 5
+      },
+      "events": [
+        "ack.duplicate",
+        "ack.invalid",
+        "ack.progress",
+        "closed.syn_received",
+        "established.data",
+        "established.fin",
+        "flow.reset",
+        "last_ack.closed",
+        "parse.accept",
+        "parse.reject",
+        "syn_received.established",
+        "timer.retransmit"
+      ],
+      "new_events": [],
+      "cumulative_events": 12
+    }
+  ],
+  "episodes_per_round": 200,
+  "steps_limit": 12,
+  "planner": "feedback_heuristic",
+  "model": null,
+  "model_calls": [],
+  "planner_error": null,
+  "status": "complete",
+  "event_catalog": [
+    "ack.duplicate",
+    "ack.invalid",
+    "ack.progress",
+    "closed.syn_received",
+    "established.data",
+    "established.fin",
+    "flow.reset",
+    "last_ack.closed",
+    "parse.accept",
+    "parse.reject",
+    "syn_received.established",
+    "timer.retransmit"
+  ],
+  "failure_count": 0,
+  "failures": [],
+  "elapsed_seconds": 0.17,
+  "input_packets": 8741,
+  "output_packets": 6065,
+  "timer_actions": 1375
+}

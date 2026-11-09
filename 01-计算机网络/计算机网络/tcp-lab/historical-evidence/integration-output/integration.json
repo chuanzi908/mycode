@@ -1,0 +1,30 @@
+{
+  "environment": {
+    "platform": "linux",
+    "python": "3.14.4"
+  },
+  "namespace": "tcplab-41d6c074fa",
+  "checks": [
+    {
+      "message": "hello tcp",
+      "stdout": "Sent:     hello tcp\nReceived: hello tcp\nResult:   PASS\n",
+      "passed": true
+    },
+    {
+      "message": "second connection",
+      "stdout": "Sent:     second connection\nReceived: second connection\nResult:   PASS\n",
+      "passed": true
+    },
+    {
+      "message": "network test 123",
+      "stdout": "Sent:     network test 123\nReceived: network test 123\nResult:   PASS\n",
+      "passed": true
+    }
+  ],
+  "cleanup": {
+    "success": true,
+    "output": ""
+  },
+  "server_log": "/mnt/c/Users/Lenovo/Documents/Codex/2026-10-29/new-chat/outputs/tcp-lab/integration-output/server.log",
+  "pcap": "/mnt/c/Users/Lenovo/Documents/Codex/2026-10-29/new-chat/outputs/tcp-lab/integration-output/traffic.pcap"
+}

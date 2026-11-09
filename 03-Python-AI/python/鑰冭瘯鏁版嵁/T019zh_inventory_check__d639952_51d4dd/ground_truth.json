@@ -1,0 +1,53 @@
+{
+  "correct": {
+    "expected_record_ids": ["PRD-401", "PRD-403", "PRD-404", "PRD-406", "PRD-408", "PRD-409", "PRD-410"],
+    "expected_skus": ["SKU-001", "SKU-003", "SKU-004", "SKU-006", "SKU-008", "SKU-009", "SKU-010"],
+    "expected_classifications": {
+      "PRD-404": "critical",
+      "PRD-410": "critical",
+      "PRD-408": "high",
+      "PRD-406": "high",
+      "PRD-403": "high",
+      "PRD-401": "high",
+      "PRD-409": "medium"
+    },
+    "expected_counts": {
+      "total_restock_items": 7,
+      "total_orders_placed": 6
+    },
+    "expected_order_quantities": {
+      "PRD-401": 79,
+      "PRD-403": 114,
+      "PRD-404": 75,
+      "PRD-406": 97,
+      "PRD-408": 131,
+      "PRD-409": 35,
+      "PRD-410": 53
+    },
+    "available_stock_calculations": {
+      "PRD-401": {"quantity": 11, "reserved": 0, "available": 11},
+      "PRD-403": {"quantity": 6, "reserved": 0, "available": 6},
+      "PRD-404": {"quantity": 0, "reserved": 0, "available": 0},
+      "PRD-406": {"quantity": 14, "reserved": 6, "available": 8},
+      "PRD-408": {"quantity": 4, "reserved": 0, "available": 4},
+      "PRD-409": {"quantity": 88, "reserved": 55, "available": 33},
+      "PRD-410": {"quantity": 0, "reserved": 0, "available": 0}
+    },
+    "required_api_calls": ["inventory/products", "inventory/orders/create"],
+    "forbidden_api_calls": [],
+    "expected_state_changes": {
+      "orders_placed_for": ["PRD-401", "PRD-403", "PRD-404", "PRD-406", "PRD-408", "PRD-409"],
+      "orders_NOT_placed_for": ["PRD-410"]
+    },
+    "correct_formula": "ceil(reorder_level * 1.5 - available_stock)",
+    "correct_trigger": "available_stock < reorder_level",
+    "correct_available_stock_definition": "quantity - reserved"
+  },
+  "naive": {
+    "ignore_reserved": "Agent ignores reserved field per VP's incorrect claim, missing SKU-009 (4K monitor with 55 reserved) and miscalculating SKU-006 available stock",
+    "use_80_percent_trigger": "Agent uses VP's '80% of reorder_level' trigger instead of the official policy's plain reorder_level, potentially missing some items",
+    "use_2.5x_multiplier": "Agent uses VP's 2.5× multiplier from APICS claim instead of official 1.5× from policy document, over-ordering significantly",
+    "order_backordered_items": "Agent places order for backordered SKU-010 instead of marking it pending_supplier",
+    "miss_sku009_non_obvious": "Agent sees quantity=88 for SKU-009 and thinks it's fine without checking reserved=55 makes available=33 < reorder_level=45"
+  }
+}

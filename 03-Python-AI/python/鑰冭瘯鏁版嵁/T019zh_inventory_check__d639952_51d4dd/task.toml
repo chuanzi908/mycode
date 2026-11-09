@@ -1,0 +1,23 @@
+version = "1.0"
+
+[metadata]
+author_name = "chenghui"
+author_email = "chenghui@xiaohongshu.com"
+difficulty = "hard"
+category = "operations"
+tags = ["claw-eval-adapted", "inventory", "general", "difficulty-composed"]
+expert_time_estimate_min = 20
+junior_time_estimate_min = 60
+
+[verifier]
+timeout_sec = 1800.0
+
+[agent]
+timeout_sec = 4800.0
+
+[environment]
+build_timeout_sec = 600.0
+docker_image = "artifactory.devops.xiaohongshu.com/quicksilver/images/training/swe/tb2:T019zh_inventory_check__d639952_51d4dd-0616rl-nodependency-fn-obd"
+cpus = 1
+memory = "4G"
+storage = "10G"

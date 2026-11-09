@@ -1,0 +1,41 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>文津阁图书借阅系统</title>
+</head>
+<body>
+<h2>图书列表</h2>
+<table border="1">
+<tr><th>书名</th><th>作者</th><th>可借</th><th>操作</th></tr>
+{% for book in books %}
+<tr>
+<td>{{ book.title }}</td>
+<td>{{ book.author }}</td>
+<td>{{ book.available_copies }}</td>
+<td>
+<button onclick="borrow({{ book.id }})">借书</button>
+</td>
+</tr>
+{% endfor %}
+</table>
+
+<script>
+function borrow(bookId) {
+    fetch('/borrow', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            book_id: bookId,
+            member_id: 1,
+            due_date: '2025-01-31'
+        })
+    }).then(r => r.json()).then(d => {
+        alert(d.success ? '借书成功' : d.msg);
+        location.reload();
+    })
+}
+</script>
+</body>
+</html>

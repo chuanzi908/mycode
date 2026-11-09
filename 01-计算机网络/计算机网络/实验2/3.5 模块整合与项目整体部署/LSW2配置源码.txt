@@ -1,0 +1,110 @@
+<Huawei>sys
+[Huawei]undo info-center enable 
+一、初始配置
+[Huawei]sysname LSW2
+[LSW2]interface Vlanif 1
+[LSW2-Vlanif1]ip address 192.168.1.2 24
+[LSW2-Vlanif1]quit
+[LSW2]ip route-static 0.0.0.0 0.0.0.0 192.168.1.252
+[LSW2]user-interface vty 0 4
+[LSW2-ui-vty0-4]authentication-mode aaa
+[LSW2-ui-vty0-4]protocol inbound all
+[LSW2-ui-vty0-4]quit
+[LSW2]aaa
+[LSW2-aaa]local-user admin1 password cipher huawei123
+[LSW2-aaa]local-user admin1 privilege level 15
+[LSW2-aaa]local-user admin1 service-type telnet ssh terminal
+[LSW2-aaa]quit
+二、划vlan
+[LSW2]vlan batch 10 20 30 40 50 666
+三、归端口
+[LSW2]interface g0/0/1
+[LSW2-GigabitEthernet0/0/1]port link-type trunk
+[LSW2-GigabitEthernet0/0/1]port trunk allow-pass vlan 10 20 
+[LSW2-GigabitEthernet0/0/1]quit
+[LSW2]interface g0/0/2
+[LSW2-GigabitEthernet0/0/2]port link-type trunk
+[LSW2-GigabitEthernet0/0/2]port trunk allow-pass vlan 30
+[LSW2-GigabitEthernet0/0/2]quit
+[LSW2]interface g0/0/3
+[LSW2-GigabitEthernet0/0/3]port link-type trunk
+[LSW2-GigabitEthernet0/0/3]port trunk allow-pass vlan 40 50
+[LSW2-GigabitEthernet0/0/3]quit
+[LSW2]interface g0/0/20
+[LSW2-GigabitEthernet0/0/20]port link-type access 
+[LSW2-GigabitEthernet0/0/20]port default vlan 666
+[LSW2-GigabitEthernet0/0/20]quit
+[LSW2]interface Eth-Trunk 1
+[LSW2-Eth-Trunk1]trunkport GigabitEthernet 0/0/22 to 0/0/24
+[LSW2-Eth-Trunk1]port link-type trunk
+[LSW2-Eth-Trunk1]port trunk allow-pass vlan all
+[LSW2-Eth-Trunk1]quit
+[LSW2]interface vlanif 10
+[LSW2-Vlanif10]ip address 192.168.10.253 24
+[LSW2-Vlanif10]quit
+[LSW2]interface vlanif 20
+[LSW2-Vlanif20]ip address 192.168.20.253 24
+[LSW2-Vlanif20]quit
+[LSW2]interface vlanif 30
+[LSW2-Vlanif30]ip address 192.168.30.253 24
+[LSW2-Vlanif30]quit
+[LSW2]interface vlanif 40
+[LSW2-Vlanif40]ip address 192.168.40.253 .24
+[LSW2-Vlanif40]quit
+[LSW2]interface vlanif 50
+[LSW2-Vlanif50]ip address 192.168.50.253 .24
+[LSW2-Vlanif50]quit
+[LSW2]interface Vlanif 666
+[LSW2-Vlanif666]ip address 172.16.2.2 24
+[LSW2-Vlanif666]quit
+[LSW2]
+四、生成树配置
+[LSW2]stp enable 
+[LSW2]stp mode mstp
+[LSW2]stp region-configuration 
+[LSW2-mst-region]region-name RG1
+[LSW2-mst-region]instance 1 vlan 10 20 30
+[LSW2-mst-region]instance 2 vlan 40 50
+[LSW2-mst-region]active region-configuration 
+[LSW2-mst-region]quit
+[LSW2]stp instance 1 priority 8192
+[LSW2]stp instance 2 priority 4096
+五、VRRP配置
+[LSW1]interface Vlanif 10
+[LSW1-Vlanif10]vrrp vrid 10 virtual-ip 192.168.10.252
+[LSW1-Vlanif10]quit
+[LSW1]interface Vlanif 20
+[LSW1-Vlanif20]vrrp vrid 20 virtual-ip 192.168.20.252
+[LSW1-Vlanif20]quit
+[LSW1]interface Vlanif 30
+[LSW1-Vlanif30]vrrp vrid 30 virtual-ip 192.168.30.252
+[LSW1-Vlanif30]quit
+[LSW1]interface Vlanif 40
+[LSW1-Vlanif40]vrrp vrid 40 virtual-ip 192.168.40.252
+[LSW1-Vlanif40]vrrp vrid 40 priority 120
+[LSW1-Vlanif40]vrrp vrid 40 preempt-mode timer delay 10
+[LSW1-Vlanif40]quit
+[LSW1]interface Vlanif 50
+[LSW1-Vlanif50]vrrp vrid 50 virtual-ip 192.168.50.252
+[LSW1-Vlanif50]vrrp vrid 50 priority 120
+[LSW1-Vlanif50]vrrp vrid 50 preempt-mode timer delay 10
+[LSW1-Vlanif50]quit
+[LSW1]
+六、路由配置
+[LSW1]ip route-static 0.0.0.0 0.0.0.0 172.16.2.1
+[LSW1]interface loopback 0
+[LSW1-LoopBack0]ip address 3.3.3.3 32
+[LSW1-LoopBack0]quit
+[LSW1]ospf 1 router-id 3.3.3.3
+[LSW1-ospf-1]area 0
+[LSW1-ospf-1-area-0.0.0.0]network 192.168.10.0 0.0.0.255
+[LSW1-ospf-1-area-0.0.0.0]network 192.168.20.0 0.0.0.255
+[LSW1-ospf-1-area-0.0.0.0]network 192.168.30.0 0.0.0.255
+[LSW1-ospf-1-area-0.0.0.0]network 192.168.40.0 0.0.0.255
+[LSW1-ospf-1-area-0.0.0.0]network 192.168.50.0 0.0.0.255
+[LSW1-ospf-1-area-0.0.0.0]network 172.16.2.0 0.0.0.255
+[LSW1-ospf-1-area-0.0.0.0]network 3.3.3.3 0.0.0.0
+[LSW1-ospf-1-area-0.0.0.0]quit
+[LSW1-ospf-1]quit
+[LSW1]quit
+<LSW1>save

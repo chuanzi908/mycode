@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chapter03.SupplierMapper">
+
+    <resultMap id="SupplierProductCustomerMap" type="com.entity.SupplierProductCustomer">
+        <id column="supplier_id" property="supplierId"/>
+        <result column="supplier_name" property="supplierName"/>
+        <result column="product_id" property="productId"/>
+        <result column="product_name" property="productName"/>
+        <result column="product_price" property="productPrice"/>
+        <result column="customer_id" property="customerId"/>
+        <result column="customer_name" property="customerName"/>
+        <result column="customer_phone" property="customerPhone"/>
+        <result column="customer_level" property="customerLevel"/>
+        <result column="user_id" property="userId"/>
+        <result column="username" property="username"/>
+        <result column="user_email" property="userEmail"/>
+        <result column="quantity" property="quantity"/>
+        <result column="created_at" property="createdAt"/>
+    </resultMap>
+
+    <sql id="joinSupplierProductCustomer">
+        SELECT s.id AS supplier_id, s.name AS supplier_name,
+               p.id AS product_id, p.name AS product_name, p.price AS product_price,
+               c.id AS customer_id, c.name AS customer_name, c.phone AS customer_phone, c.level AS customer_level,
+               u.id AS user_id, u.username, u.email AS user_email,
+               cp.quantity, cp.created_at
+        FROM supplier s
+        INNER JOIN product p ON p.supplier_id = s.id
+        INNER JOIN customer_product cp ON cp.product_id = p.id
+        INNER JOIN customer c ON c.id = cp.customer_id
+        LEFT JOIN user_customer uc ON uc.customer_id = c.id
+        LEFT JOIN user u ON u.id = uc.user_id
+    </sql>
+
+    <select id="findBySupplierNameXml" resultMap="SupplierProductCustomerMap">
+        <include refid="joinSupplierProductCustomer"/>
+        <where>
+            s.name LIKE CONCAT('%', #{supplierName}, '%')
+        </where>
+    </select>
+
+    <select id="findBySupplierAndProductXml" resultMap="SupplierProductCustomerMap">
+        <include refid="joinSupplierProductCustomer"/>
+        <where>
+            s.name LIKE CONCAT('%', #{supplierName}, '%')
+            AND p.name LIKE CONCAT('%', #{productName}, '%')
+        </where>
+    </select>
+
+    <select id="findBySupplierIdAndCustomerXml" resultMap="SupplierProductCustomerMap">
+        <include refid="joinSupplierProductCustomer"/>
+        <where>
+            s.id = #{supplierId}
+            AND c.name LIKE CONCAT('%', #{customerName}, '%')
+        </where>
+    </select>
+
+    <select id="findBySupplierAndPriceRangeXml" resultMap="SupplierProductCustomerMap">
+        <include refid="joinSupplierProductCustomer"/>
+        <where>
+            s.name LIKE CONCAT('%', #{supplierName}, '%')
+            AND p.price BETWEEN #{minPrice} AND #{maxPrice}
+        </where>
+    </select>
+
+    <select id="findBySupplierProductAndDateXml" resultMap="SupplierProductCustomerMap">
+        <include refid="joinSupplierProductCustomer"/>
+        <where>
+            s.id = #{supplierId}
+            AND p.name LIKE CONCAT('%', #{productName}, '%')
+            AND cp.created_at >= #{startDate}
+            AND cp.created_at &lt;= #{endDate}
+        </where>
+    </select>
+
+</mapper>

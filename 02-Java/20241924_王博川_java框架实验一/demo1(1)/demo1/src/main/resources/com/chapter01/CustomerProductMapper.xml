@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chapter01.CustomerProductMapper">
+
+    <resultMap id="CustomerProductMap" type="com.entity.CustomerProduct">
+        <id column="id" property="id"/>
+        <result column="customer_id" property="customerId"/>
+        <result column="product_id" property="productId"/>
+        <result column="quantity" property="quantity"/>
+        <result column="created_at" property="createdAt"/>
+        <association property="customer" javaType="com.entity.Customer">
+            <id column="c_id" property="id"/>
+            <result column="c_name" property="name"/>
+            <result column="c_phone" property="phone"/>
+            <result column="c_email" property="email"/>
+            <result column="c_address" property="address"/>
+            <result column="c_level" property="level"/>
+        </association>
+        <association property="product" javaType="com.entity.Product">
+            <id column="p_id" property="id"/>
+            <result column="p_name" property="name"/>
+            <result column="p_price" property="price"/>
+            <result column="p_stock" property="stock"/>
+            <result column="p_description" property="description"/>
+        </association>
+    </resultMap>
+
+    <sql id="joinCustomerProduct">
+        SELECT cp.*,
+               c.id AS c_id, c.name AS c_name, c.phone AS c_phone,
+               c.email AS c_email, c.address AS c_address, c.level AS c_level,
+               p.id AS p_id, p.name AS p_name, p.price AS p_price,
+               p.stock AS p_stock, p.description AS p_description
+        FROM customer_product cp
+        LEFT JOIN customer c ON cp.customer_id = c.id
+        LEFT JOIN product p ON cp.product_id = p.id
+    </sql>
+
+    <select id="findAll" resultMap="CustomerProductMap">
+        <include refid="joinCustomerProduct"/>
+    </select>
+
+    <select id="findByCustomerId" resultMap="CustomerProductMap">
+        <include refid="joinCustomerProduct"/>
+        <where>cp.customer_id = #{customerId}</where>
+    </select>
+
+    <select id="findByProductId" resultMap="CustomerProductMap">
+        <include refid="joinCustomerProduct"/>
+        <where>cp.product_id = #{productId}</where>
+    </select>
+
+    <insert id="addCustomerProduct" parameterType="com.entity.CustomerProduct"
+            useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO customer_product(customer_id, product_id, quantity)
+        VALUES(#{customerId}, #{productId}, #{quantity})
+    </insert>
+
+    <update id="updateQuantity" parameterType="com.entity.CustomerProduct">
+        UPDATE customer_product SET quantity = #{quantity} WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM customer_product WHERE id = #{id}
+    </delete>
+
+    <delete id="deleteByCustomerId" parameterType="int">
+        DELETE FROM customer_product WHERE customer_id = #{customerId}
+    </delete>
+
+</mapper>

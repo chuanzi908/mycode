@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<script src="../../node_modules/echarts/dist/echarts.min.js"></script>
+<style>html,body{margin:0;padding:0;background:#ffffff;} #chart{width:100vw;height:100vh;}</style>
+</head><body><div id="chart"></div>
+<script>
+var ch = echarts.init(document.getElementById('chart'));
+ch.setOption({"textStyle": {"fontFamily": "Microsoft YaHei, 'PingFang SC', sans-serif", "color": "#37474f"}, "color": ["#2e7d32", "#f9a825", "#1e88e5", "#ff7043", "#66bb6a", "#26c6da", "#e53935", "#90a4ae"], "title": {"text": "未来三年营业收入预测（万元）", "left": "center", "top": 12, "textStyle": {"fontSize": 18}}, "tooltip": {"trigger": "axis"}, "legend": {"top": 44}, "grid": {"left": 60, "right": 60, "top": 80, "bottom": 40}, "xAxis": {"type": "category", "data": ["第1年\n(2026)", "第2年\n(2027)", "第3年\n(2028)"]}, "yAxis": {"type": "value", "name": "万元"}, "series": [{"name": "农资渠道佣金", "type": "bar", "stack": "r", "data": [2, 12, 55], "barWidth": "48%", "itemStyle": {"borderRadius": 0}}, {"name": "品牌精准推广", "type": "bar", "stack": "r", "data": [3, 15, 45], "barWidth": "48%", "itemStyle": {"borderRadius": 0}}, {"name": "增值会员服务", "type": "bar", "stack": "r", "data": [2, 8, 30], "barWidth": "48%", "itemStyle": {"borderRadius": 0}}, {"name": "政府项目采购", "type": "bar", "stack": "r", "data": [5, 20, 50], "barWidth": "48%", "itemStyle": {"borderRadius": 0}}, {"name": "总营收", "type": "line", "data": [12, 55, 180], "symbolSize": 10, "lineStyle": {"width": 3, "color": "#e53935"}, "itemStyle": {"color": "#e53935"}, "label": {"show": true, "position": "top", "formatter": "{c}", "fontSize": 13, "fontWeight": "bold"}}]});
+</script></body></html>

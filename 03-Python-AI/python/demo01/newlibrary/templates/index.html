@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图书借阅系统</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+        .header-left h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 5px;
+            backdrop-filter: blur(10px);
+        }
+        .user-info span {
+            font-size: 16px;
+        }
+        .btn {
+            padding: 8px 16px;
+            background: white;
+            color: #667eea;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background: #f8f9fa;
+        }
+        .btn-admin {
+            background: #28a745;
+            color: white;
+        }
+        .btn-admin:hover {
+            background: #218838;
+        }
+        .btn-logout {
+            background: #dc3545;
+            color: white;
+        }
+        .btn-logout:hover {
+            background: #c82333;
+        }
+
+        .tabs {
+            display: flex;
+            background: white;
+            border-radius: 10px 10px 0 0;
+            overflow: hidden;
+        }
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            background: #f8f9fa;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        .tab:hover { background: #e9ecef; }
+        .tab.active {
+            background: white;
+            font-weight: bold;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .content {
+            background: white;
+            padding: 30px;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        .section-title {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #333;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+        }
+        .form-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .form-btn:hover {
+            background: #5a67d8;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .form-btn:active { transform: translateY(0); }
+        .form-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background: #f8f9fa;
+            font-weight: bold;
+            color: #333;
+        }
+        tr:hover { background: #f8f9fa; }
+
+        .status-borrowed { color: #e74c3c; font-weight: bold; }
+        .status-available { color: #27ae60; font-weight: bold; }
+        .status-overdue { color: #f39c12; font-weight: bold; }
+
+        .message {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            display: none;
+        }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .record-id { width: 120px; }
+
+        .welcome-message {
+            text-align: center;
+            padding: 40px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-left">
+                <h1>📚 图书借阅系统</h1>
+                <p>轻松借阅，智慧管理</p>
+            </div>
+            <div class="user-info">
+                <span>欢迎，<strong id="current-username">加载中...</strong></span>
+                <span id="user-type-display"></span>
+                <a href="/admin" class="btn btn-admin" id="admin-link" style="display: none;">管理员后台</a>
+                <button class="btn btn-logout" onclick="logout()">退出登录</button>
+            </div>
+        </div>
+
+        <div id="message" class="message"></div>
+
+        <!-- 欢迎信息（未登录时显示） -->
+        <div id="welcome-message" class="welcome-message">
+            <h2>欢迎使用图书借阅系统</h2>
+            <p>请先登录以使用系统功能</p>
+            <a href="/login" class="btn" style="margin-top: 20px; font-size: 18px; padding: 12px 30px;">前往登录</a>
+        </div>
+
+        <!-- 主功能区域（登录后显示） -->
+        <div id="main-content" style="display: none;">
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('books')">📖 图书列表</button>
+                <button class="tab" onclick="switchTab('borrow')">🎫 借阅图书</button>
+                <button class="tab" onclick="switchTab('return')">↩️ 归还图书</button>
+                <button class="tab" onclick="switchTab('records')">📋 借阅记录</button>
+            </div>
+
+            <div class="content">
+                <!-- 图书列表 -->
+                <div id="books-tab" class="tab-content active">
+                    <h2 class="section-title">📖 馆藏图书</h2>
+                    <div class="table-container">
+                        <table id="books-table">
+                            <thead>
+                                <tr>
+                                    <th>编号</th>
+                                    <th>书名</th>
+                                    <th>作者</th>
+                                    <th>ISBN</th>
+                                    <th>总数量</th>
+                                    <th>可借数量</th>
+                                    <th>借出数量</th>
+                                    <th>状态</th>
+                                </tr>
+                            </thead>
+                            <tbody id="books-body">
+                                <tr>
+                                    <td colspan="8" style="text-align: center;">
+                                        <div class="loading"></div> 加载中...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 借阅图书 -->
+                <div id="borrow-tab" class="tab-content">
+                    <h2 class="section-title">🎫 借阅图书</h2>
+                    <form id="borrow-form">
+                        <div class="form-group">
+                            <label for="borrow-book">选择图书：</label>
+                            <select id="borrow-book" class="form-control" required>
+                                <option value="">请选择图书</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>当前借阅人：</label>
+                            <input type="text" id="current-borrower" class="form-control" readonly>
+                        </div>
+                        <button type="submit" class="form-btn">确认借阅</button>
+                    </form>
+                </div>
+
+                <!-- 归还图书 -->
+                <div id="return-tab" class="tab-content">
+                    <h2 class="section-title">↩️ 归还图书</h2>
+                    <form id="return-form">
+                        <div class="form-group">
+                            <label for="return-record">选择借阅记录：</label>
+                            <select id="return-record" class="form-control" required>
+                                <option value="">请选择借阅记录</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="form-btn">确认归还</button>
+                    </form>
+                </div>
+
+                <!-- 借阅记录 -->
+                <div id="records-tab" class="tab-content">
+                    <h2 class="section-title">📋 借阅记录</h2>
+                    <div class="table-container">
+                        <table id="records-table">
+                            <thead>
+                                <tr>
+                                    <th>记录ID</th>
+                                    <th>图书名称</th>
+                                    <th>借阅人</th>
+                                    <th>借阅日期</th>
+                                    <th>到期日期</th>
+                                    <th>归还日期</th>
+                                    <th>状态</th>
+                                </tr>
+                            </thead>
+                            <tbody id="records-body">
+                                <tr>
+                                    <td colspan="7" style="text-align: center;">
+                                        <div class="loading"></div> 加载中...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = '/api';
+        let currentUser = null;
+
+        // 检查登录状态
+        async function checkLogin() {
+            try {
+                const response = await fetch(`${API_BASE}/current-user`);
+                const data = await response.json();
+
+                if (data.success) {
+                    currentUser = data.data;
+                    document.getElementById('current-username').textContent = currentUser.username;
+
+                    // 显示用户类型
+                    const userTypeEl = document.getElementById('user-type-display');
+                    if (currentUser.user_type === 'admin') {
+                        userTypeEl.textContent = '管理员';
+                        document.getElementById('admin-link').style.display = 'inline-block';
+                    } else {
+                        userTypeEl.textContent = '会员';
+                        document.getElementById('admin-link').style.display = 'none';
+                    }
+
+                    // 显示主功能区域
+                    document.getElementById('welcome-message').style.display = 'none';
+                    document.getElementById('main-content').style.display = 'block';
+
+                    // 加载初始数据
+                    loadBooks();
+                    loadAvailableBooks();
+                    loadUnreturnedRecords();
+                    loadBorrowRecords();
+
+                    // 显示当前借阅人
+                    document.getElementById('current-borrower').value = currentUser.username;
+
+                } else {
+                    // 未登录，显示欢迎信息
+                    document.getElementById('welcome-message').style.display = 'block';
+                    document.getElementById('main-content').style.display = 'none';
+                }
+            } catch (error) {
+                console.error('检查登录状态失败:', error);
+                // 未登录，显示欢迎信息
+                document.getElementById('welcome-message').style.display = 'block';
+                document.getElementById('main-content').style.display = 'none';
+            }
+        }
+
+        // 切换标签页
+        function switchTab(tabName) {
+            // 移除所有激活状态
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // 激活选中的标签
+            const activeTab = Array.from(document.querySelectorAll('.tab'))
+                .find(tab => tab.textContent.includes(tabName === 'books' ? '图书列表' :
+                                                    tabName === 'borrow' ? '借阅图书' :
+                                                    tabName === 'return' ? '归还图书' : '借阅记录'));
+            if (activeTab) activeTab.classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+
+            // 刷新数据
+            if (tabName === 'books') loadBooks();
+            else if (tabName === 'records') loadBorrowRecords();
+        }
+
+        // 显示消息
+        function showMessage(type, text) {
+            const messageEl = document.getElementById('message');
+            messageEl.className = `message ${type}`;
+            messageEl.textContent = text;
+            messageEl.style.display = 'block';
+
+            setTimeout(() => {
+                messageEl.style.display = 'none';
+            }, 3000);
+        }
+
+        // 退出登录
+        async function logout() {
+            try {
+                const response = await fetch(`${API_BASE}/logout`, {
+                    method: 'POST'
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    window.location.href = '/login';
+                } else {
+                    showMessage('error', '退出失败：' + data.message);
+                }
+            } catch (error) {
+                showMessage('error', '网络错误，请重试');
+            }
+        }
+
+        // 加载图书列表
+        async function loadBooks() {
+            try {
+                const response = await fetch(`${API_BASE}/books`);
+                if (!response.ok) throw new Error('API请求失败');
+                const data = await response.json();
+
+                if (data.success) {
+                    const tbody = document.getElementById('books-body');
+                    tbody.innerHTML = '';
+
+                    data.data.forEach(book => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${book.book_id}</td>
+                            <td>${book.title}</td>
+                            <td>${book.author}</td>
+                            <td>${book.isbn || '-'}</td>
+                            <td>${book.total_copies}</td>
+                            <td>${book.available_copies}</td>
+                            <td>${book.borrowed_count || 0}</td>
+                            <td class="${book.available_copies > 0 ? 'status-available' : 'status-borrowed'}">
+                                ${book.available_copies > 0 ? '可借' : '已借完'}
+                            </td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                } else {
+                    showMessage('error', data.message || '加载图书失败');
+                }
+            } catch (error) {
+                showMessage('error', '加载失败，请检查服务器连接');
+                console.error('加载图书错误:', error);
+            }
+        }
+
+        // 加载可借图书
+        async function loadAvailableBooks() {
+            try {
+                const response = await fetch(`${API_BASE}/books`);
+                const data = await response.json();
+
+                if (data.success) {
+                    const select = document.getElementById('borrow-book');
+                    select.innerHTML = '<option value="">请选择图书</option>';
+
+                    data.data.forEach(book => {
+                        if (book.available_copies > 0) {
+                            const option = document.createElement('option');
+                            option.value = book.book_id;
+                            option.textContent = `${book.title} - ${book.author} (剩余: ${book.available_copies}本)`;
+                            select.appendChild(option);
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error('加载可借图书失败:', error);
+            }
+        }
+
+        // 加载未归还的借阅记录
+        async function loadUnreturnedRecords() {
+            try {
+                const response = await fetch(`${API_BASE}/borrow-records`);
+                const data = await response.json();
+
+                if (data.success) {
+                    const select = document.getElementById('return-record');
+                    select.innerHTML = '<option value="">请选择借阅记录</option>';
+
+                    data.data.forEach(record => {
+                        if (record.status === '借阅中') {
+                            const option = document.createElement('option');
+                            option.value = record.record_id;
+
+                            const dueDate = new Date(record.due_date);
+                            const today = new Date();
+                            const isOverdue = dueDate < today;
+                            const statusText = isOverdue ? '（已逾期）' : '';
+
+                            option.textContent = `记录${record.record_id}: ${record.book_title}${statusText}`;
+                            select.appendChild(option);
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error('加载借阅记录失败:', error);
+            }
+        }
+
+        // 加载借阅记录
+        async function loadBorrowRecords() {
+            try {
+                const response = await fetch(`${API_BASE}/borrow-records`);
+                const data = await response.json();
+
+                if (data.success) {
+                    const tbody = document.getElementById('records-body');
+                    tbody.innerHTML = '';
+
+                    data.data.forEach(record => {
+                        const today = new Date();
+                        const dueDate = new Date(record.due_date);
+                        const isOverdue = dueDate < today && record.status === '借阅中';
+                        const statusClass = isOverdue ? 'status-overdue' :
+                                           record.status === '借阅中' ? 'status-borrowed' :
+                                           'status-available';
+                        const statusText = isOverdue ? '逾期' : record.status;
+
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${record.record_id}</td>
+                            <td>${record.book_title}</td>
+                            <td>${record.member_name || record.username || '-'}</td>
+                            <td>${record.borrow_date}</td>
+                            <td>${record.due_date}</td>
+                            <td>${record.return_date || '-'}</td>
+                            <td class="${statusClass}">${statusText}</td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                } else {
+                    showMessage('error', data.message || '加载借阅记录失败');
+                }
+            } catch (error) {
+                console.error('加载借阅记录失败:', error);
+            }
+        }
+
+        // 借阅图书
+        document.getElementById('borrow-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const bookId = document.getElementById('borrow-book').value;
+
+            if (!bookId) {
+                showMessage('error', '请选择要借阅的图书');
+                return;
+            }
+
+            const btn = e.target.querySelector('button');
+            const originalText = btn.textContent;
+            btn.disabled = true;
+            btn.textContent = '处理中...';
+
+            try {
+                const response = await fetch(`${API_BASE}/borrow`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        book_id: bookId
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showMessage('success', `借阅成功！到期日期：${data.data.due_date}`);
+
+                    // 清空表单
+                    e.target.reset();
+
+                    // 刷新数据
+                    loadBooks();
+                    loadAvailableBooks();
+                    loadUnreturnedRecords();
+                    loadBorrowRecords();
+                } else {
+                    showMessage('error', data.message || '借阅失败');
+                }
+            } catch (error) {
+                showMessage('error', '网络错误，请检查服务器连接');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = originalText;
+            }
+        });
+
+        // 归还图书
+        document.getElementById('return-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const recordId = document.getElementById('return-record').value;
+
+            if (!recordId) {
+                showMessage('error', '请选择要归还的借阅记录');
+                return;
+            }
+
+            const btn = e.target.querySelector('button');
+            const originalText = btn.textContent;
+            btn.disabled = true;
+            btn.textContent = '处理中...';
+
+            try {
+                const response = await fetch(`${API_BASE}/return`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        record_id: recordId
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showMessage('success', `归还成功！归还日期：${data.data.return_date}`);
+
+                    // 清空表单
+                    e.target.reset();
+
+                    // 刷新数据
+                    loadBooks();
+                    loadAvailableBooks();
+                    loadUnreturnedRecords();
+                    loadBorrowRecords();
+                } else {
+                    showMessage('error', data.message || '归还失败');
+                }
+            } catch (error) {
+                showMessage('error', '网络错误，请检查服务器连接');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = originalText;
+            }
+        });
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            checkLogin();
+        });
+    </script>
+</body>
+</html>

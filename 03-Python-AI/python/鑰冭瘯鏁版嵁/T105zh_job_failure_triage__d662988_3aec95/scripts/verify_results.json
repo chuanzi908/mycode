@@ -1,0 +1,385 @@
+{
+  "total_checks": 54,
+  "verified": 54,
+  "errors": 0,
+  "details": [
+    {
+      "name": "RUBRIC_NUMERIC_JOB003_FAILURE_COUNT",
+      "expected": "3",
+      "computed": "3",
+      "status": "OK",
+      "cmd": "[r for r in jobs['JOB-003']['execution_history'] if r['status']=='failed']"
+    },
+    {
+      "name": "RUBRIC_NUMERIC_JOB003_FIRST_FAILURE_TIME",
+      "expected": "2026-05-10T01:30:01Z",
+      "computed": "2026-05-10T01:30:01Z",
+      "status": "OK",
+      "cmd": "min(fails, key=lambda r: r['started_at'])['started_at']"
+    },
+    {
+      "name": "RUBRIC_NUMERIC_JOB005_FAILURE_COUNT",
+      "expected": "1",
+      "computed": "1",
+      "status": "OK",
+      "cmd": "[r for r in jobs['JOB-005']['execution_history'] if r['status']=='failed']"
+    },
+    {
+      "name": "RUBRIC_NUMERIC_JOB005_FIRST_FAILURE_TIME",
+      "expected": "2026-05-05T08:00:00Z",
+      "computed": "2026-05-05T08:00:00Z",
+      "status": "OK",
+      "cmd": "min(fails, key=lambda r: r['started_at'])['started_at']"
+    },
+    {
+      "name": "RUBRIC_NUMERIC_JOB007_FAILURE_COUNT",
+      "expected": "3",
+      "computed": "3",
+      "status": "OK",
+      "cmd": "[r for r in jobs['JOB-007']['execution_history'] if r['status']=='failed']"
+    },
+    {
+      "name": "RUBRIC_NUMERIC_JOB007_FIRST_FAILURE_TIME",
+      "expected": "2026-05-09T18:00:00Z",
+      "computed": "2026-05-09T18:00:00Z",
+      "status": "OK",
+      "cmd": "min(fails, key=lambda r: r['started_at'])['started_at']"
+    },
+    {
+      "name": "RUBRIC_OUTPUT_TOTAL_FAILED_JOBS",
+      "expected": "3",
+      "computed": "3",
+      "status": "OK",
+      "cmd": "len([j for j in jobs if j['last_status']=='failed'])"
+    },
+    {
+      "name": "RUBRIC_OUTPUT_TOTAL_RELATED_TICKETS",
+      "expected": "5",
+      "computed": "5",
+      "status": "OK",
+      "cmd": "len(set of all related_tickets across 3 jobs)"
+    },
+    {
+      "name": "RUBRIC_OUTPUT_TOTAL_UNRELATED_TICKETS",
+      "expected": "5",
+      "computed": "5",
+      "status": "OK",
+      "cmd": "len(unrelated_tickets list)"
+    },
+    {
+      "name": "CROSS_JOB-003_TK-003_TIMELINE",
+      "expected": "True",
+      "computed": "True",
+      "status": "OK",
+      "cmd": "tickets['TK-003']['created_at'] > jobs['JOB-003'].first_failure_time"
+    },
+    {
+      "name": "CROSS_JOB-003_TK-007_TIMELINE",
+      "expected": "True",
+      "computed": "True",
+      "status": "OK",
+      "cmd": "tickets['TK-007']['created_at'] > jobs['JOB-003'].first_failure_time"
+    },
+    {
+      "name": "CROSS_JOB-005_TK-002_TIMELINE",
+      "expected": "True",
+      "computed": "True",
+      "status": "OK",
+      "cmd": "tickets['TK-002']['created_at'] > jobs['JOB-005'].first_failure_time"
+    },
+    {
+      "name": "CROSS_JOB-005_TK-006_TIMELINE",
+      "expected": "True",
+      "computed": "True",
+      "status": "OK",
+      "cmd": "tickets['TK-006']['created_at'] > jobs['JOB-005'].first_failure_time"
+    },
+    {
+      "name": "CROSS_JOB-007_TK-005_TIMELINE",
+      "expected": "True",
+      "computed": "True",
+      "status": "OK",
+      "cmd": "tickets['TK-005']['created_at'] > jobs['JOB-007'].first_failure_time"
+    },
+    {
+      "name": "ALL_TICKETS_COUNT",
+      "expected": "10",
+      "computed": "10",
+      "status": "OK",
+      "cmd": "sorted([t['ticket_id'] for t in tickets])"
+    },
+    {
+      "name": "TRAP_TK-001_UNRELATED",
+      "expected": "True",
+      "computed": "True",
+      "status": "OK",
+      "cmd": "tickets['TK-001']['category'] in unrelated categories"
+    },
+    {
+      "name": "TRAP_TK-004_UNRELATED",
+      "expected": "True",
+      "computed": "True",
+      "status": "OK",
+      "cmd": "tickets['TK-004']['category'] in unrelated categories"
+    },
+    {
+      "name": "TRAP_TK-008_UNRELATED",
+      "expected": "True",
+      "computed": "True",
+      "status": "OK",
+      "cmd": "tickets['TK-008']['category'] in unrelated categories"
+    },
+    {
+      "name": "TRAP_TK-009_UNRELATED",
+      "expected": "True",
+      "computed": "True",
+      "status": "OK",
+      "cmd": "tickets['TK-009']['category'] in unrelated categories"
+    },
+    {
+      "name": "TRAP_TK-010_UNRELATED",
+      "expected": "True",
+      "computed": "True",
+      "status": "OK",
+      "cmd": "tickets['TK-010']['category'] in unrelated categories"
+    },
+    {
+      "name": "OUTPUT_JOB-003_RELATED_TICKETS",
+      "expected": "['TK-003', 'TK-007']",
+      "computed": "['TK-003', 'TK-007']",
+      "status": "OK",
+      "cmd": "manual analysis"
+    },
+    {
+      "name": "OUTPUT_JOB-005_RELATED_TICKETS",
+      "expected": "['TK-002', 'TK-006']",
+      "computed": "['TK-002', 'TK-006']",
+      "status": "OK",
+      "cmd": "manual analysis"
+    },
+    {
+      "name": "OUTPUT_JOB-007_RELATED_TICKETS",
+      "expected": "['TK-005']",
+      "computed": "['TK-005']",
+      "status": "OK",
+      "cmd": "manual analysis"
+    },
+    {
+      "name": "TRAP_RUN-003-892_USES_ERROR_OBJECT",
+      "expected": "True",
+      "computed": "True",
+      "status": "OK",
+      "cmd": "'error' in run"
+    },
+    {
+      "name": "TRAP_RUN-003-891_USES_ERROR_OBJECT",
+      "expected": "True",
+      "computed": "True",
+      "status": "OK",
+      "cmd": "'error' in run"
+    },
+    {
+      "name": "TRAP_RUN-003-890_USES_ERROR_OBJECT",
+      "expected": "True",
+      "computed": "True",
+      "status": "OK",
+      "cmd": "'error' in run"
+    },
+    {
+      "name": "TRAP_RUN-005-044_USES_ERROR_MESSAGE_STRING",
+      "expected": "True",
+      "computed": "True",
+      "status": "OK",
+      "cmd": "'error_message' in run"
+    },
+    {
+      "name": "TRAP_RUN-005-044_NO_ERROR_OBJECT",
+      "expected": "False",
+      "computed": "False",
+      "status": "OK",
+      "cmd": "'error' not in run"
+    },
+    {
+      "name": "TRAP_RUN-007-610_USES_ERROR_OBJECT",
+      "expected": "True",
+      "computed": "True",
+      "status": "OK",
+      "cmd": "'error' in run"
+    },
+    {
+      "name": "TRAP_RUN-007-609_USES_ERROR_OBJECT",
+      "expected": "True",
+      "computed": "True",
+      "status": "OK",
+      "cmd": "'error' in run"
+    },
+    {
+      "name": "TRAP_RUN-007-608_USES_ERROR_OBJECT",
+      "expected": "True",
+      "computed": "True",
+      "status": "OK",
+      "cmd": "'error' in run"
+    },
+    {
+      "name": "OUTPUT_JOB003_PRIORITY",
+      "expected": "critical",
+      "computed": "critical",
+      "status": "OK",
+      "cmd": "critical: high-freq pipeline, 3 failures, core data"
+    },
+    {
+      "name": "OUTPUT_JOB005_PRIORITY",
+      "expected": "high",
+      "computed": "high",
+      "status": "OK",
+      "cmd": "high: weekly report, not real-time"
+    },
+    {
+      "name": "OUTPUT_JOB007_PRIORITY",
+      "expected": "high",
+      "computed": "high",
+      "status": "OK",
+      "cmd": "high: notifications, 298 queued, approvals blocked"
+    },
+    {
+      "name": "OUTPUT_REQUIRED_FIELDS_COUNT",
+      "expected": "9",
+      "computed": "9",
+      "status": "OK",
+      "cmd": "instruction.md output schema → 9 fields per failed_jobs entry"
+    },
+    {
+      "name": "NUMERIC_CONVERSATION_JOB003_COUNT",
+      "expected": "3",
+      "computed": "3",
+      "status": "OK",
+      "cmd": "execution_history count"
+    },
+    {
+      "name": "NUMERIC_CONVERSATION_JOB005_COUNT",
+      "expected": "1",
+      "computed": "1",
+      "status": "OK",
+      "cmd": "execution_history count"
+    },
+    {
+      "name": "NUMERIC_CONVERSATION_JOB007_COUNT",
+      "expected": "3",
+      "computed": "3",
+      "status": "OK",
+      "cmd": "execution_history count"
+    },
+    {
+      "name": "NUMERIC_CONVERSATION_TOTAL_FAILED",
+      "expected": "3",
+      "computed": "3",
+      "status": "OK",
+      "cmd": "len(failed_ids)"
+    },
+    {
+      "name": "NUMERIC_CONVERSATION_TOTAL_RELATED",
+      "expected": "5",
+      "computed": "5",
+      "status": "OK",
+      "cmd": "len(all_related)"
+    },
+    {
+      "name": "NUMERIC_CONVERSATION_TOTAL_UNRELATED",
+      "expected": "5",
+      "computed": "5",
+      "status": "OK",
+      "cmd": "len(unrelated)"
+    },
+    {
+      "name": "ANSWER_ALL_TICKETS_CLASSIFIED",
+      "expected": "True",
+      "computed": "True",
+      "status": "OK",
+      "cmd": "all_related ∪ unrelated == all ticket IDs"
+    },
+    {
+      "name": "TK003_CREATED_AT",
+      "expected": "2026-05-10T08:45:00Z",
+      "computed": "2026-05-10T08:45:00Z",
+      "status": "OK",
+      "cmd": "tickets['TK-003']['created_at']"
+    },
+    {
+      "name": "JOB003_FIRST_FAILURE_TIME_VAL",
+      "expected": "2026-05-10T01:30:01Z",
+      "computed": "2026-05-10T01:30:01Z",
+      "status": "OK",
+      "cmd": "RUN-003-890.started_at"
+    },
+    {
+      "name": "TK002_CREATED_AT",
+      "expected": "2026-05-05T11:30:00Z",
+      "computed": "2026-05-05T11:30:00Z",
+      "status": "OK",
+      "cmd": "tickets['TK-002']['created_at']"
+    },
+    {
+      "name": "TK002_DEPARTMENT",
+      "expected": "销售部",
+      "computed": "销售部",
+      "status": "OK",
+      "cmd": "tickets['TK-002']['department']"
+    },
+    {
+      "name": "JOB005_FAILED_AT",
+      "expected": "2026-05-05T08:00:00Z",
+      "computed": "2026-05-05T08:00:00Z",
+      "status": "OK",
+      "cmd": "RUN-005-044.started_at"
+    },
+    {
+      "name": "TK005_CREATED_AT",
+      "expected": "2026-05-09T19:15:00Z",
+      "computed": "2026-05-09T19:15:00Z",
+      "status": "OK",
+      "cmd": "tickets['TK-005']['created_at']"
+    },
+    {
+      "name": "JOB007_FIRST_FAILURE_TIME_VAL",
+      "expected": "2026-05-09T18:00:00Z",
+      "computed": "2026-05-09T18:00:00Z",
+      "status": "OK",
+      "cmd": "RUN-007-608.started_at"
+    },
+    {
+      "name": "TK009_CATEGORY",
+      "expected": "inquiry",
+      "computed": "inquiry",
+      "status": "OK",
+      "cmd": "tickets['TK-009']['category']"
+    },
+    {
+      "name": "TK010_CATEGORY",
+      "expected": "performance",
+      "computed": "performance",
+      "status": "OK",
+      "cmd": "tickets['TK-010']['category']"
+    },
+    {
+      "name": "TK008_CATEGORY",
+      "expected": "performance",
+      "computed": "performance",
+      "status": "OK",
+      "cmd": "tickets['TK-008']['category']"
+    },
+    {
+      "name": "TK006_CATEGORY",
+      "expected": "report",
+      "computed": "report",
+      "status": "OK",
+      "cmd": "tickets['TK-006']['category']"
+    },
+    {
+      "name": "TK007_MENTIONS_DATA_SYNC",
+      "expected": "True",
+      "computed": "True",
+      "status": "OK",
+      "cmd": "'数据同步' in tickets['TK-007']['description']"
+    }
+  ]
+}

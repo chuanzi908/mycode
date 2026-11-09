@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:#fff;font-family:'Microsoft YaHei','PingFang SC',sans-serif;-webkit-font-smoothing:antialiased;}
+.wrap{width:1160px;padding:34px 38px 22px;}
+.h1{font-size:25px;font-weight:700;color:#1c3d2e;letter-spacing:.3px;}
+.sub{font-size:13px;color:#778b82;margin-top:9px;padding-left:1px;}
+.foot{margin-top:20px;padding-top:12px;border-top:1px solid #dde2e0;
+      font-size:11.5px;color:#778b82;line-height:1.7;}
+
+.tier{border-radius:12px;padding:15px 20px;margin-top:13px;}
+.tier .hd{font-size:15.5px;font-weight:700;letter-spacing:.4px;}
+.tier .bd2{font-size:12.5px;line-height:1.75;margin-top:6px;}
+.t1{background:#1c3d2e;}
+.t1 .hd{color:#fff;} .t1 .bd2{color:#cfe0d5;}
+.t2{background:#2e7d32;}
+.t2 .hd{color:#fff;} .t2 .bd2{color:#dcefdd;}
+.t3{background:#edf1ee;border:1px solid #dde2e0;}
+.t3 .hd{color:#1c3d2e;} .t3 .bd2{color:#3a4a44;}
+.tvarrow{text-align:center;color:#dde2e0;font-size:16px;line-height:1.4;margin:2px 0;}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px;}
+.panel{border:1px solid #dde2e0;border-radius:12px;padding:14px 18px;background:#fff;}
+.panel h4{font-size:14.5px;color:#1c3d2e;font-weight:700;padding-bottom:9px;
+         border-bottom:1px dashed #dde2e0;}
+.panel ul{list-style:none;margin-top:9px;}
+.panel li{font-size:12.5px;color:#3a4a44;line-height:1.95;padding-left:15px;position:relative;}
+.panel li:before{content:'';position:absolute;left:0;top:9.5px;width:5px;height:5px;
+                border-radius:50%;background:#4a7c59;}
+.kv{font-size:12.5px;color:#778b82;margin-top:15px;line-height:1.85;}
+.kv b{color:#2e7d32;}
+.chain{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:10px;}
+.node{background:#f4f7f5;border-radius:8px;padding:8px 13px;font-size:12.5px;
+      color:#1c3d2e;font-weight:700;white-space:nowrap;}
+.node.alt{background:#fff;border:1px solid #dde2e0;font-weight:600;color:#4a7c59;}
+.che{color:#dde2e0;font-size:13px;}
+
+</style></head><body><div class="wrap">
+<div class="h1">技术路线总览 —— 端云协同的轻量化诊断架构</div>
+<div class="sub">端侧推理 ≤1 秒｜包体增量 ≤5MB｜弱网可离线初判｜置信度双阈值兜底，低置信结果转人工复核</div>
+
+<div class="tier t1">
+  <div class="hd">端侧 · 网页平台（免安装、扫码即用）</div>
+  <div class="bd2">拍照上传 → 图像预处理 → 轻量模型推理 ≤1 秒 · 包体增量 ≤5MB · 弱网可离线初判</div>
+</div>
+<div class="tvarrow">▼</div>
+<div class="tier t2">
+  <div class="hd">服务端 · 诊断与方案输出</div>
+  <div class="bd2">识别服务 ｜ 防治方案引擎 ｜ 知识库服务 ｜ 预警推送服务 ｜ 人工复核队列</div>
+</div>
+<div class="tvarrow">▼</div>
+<div class="tier t3">
+  <div class="hd">数据层</div>
+  <div class="bd2">病虫害影像样本库 ｜ 农药登记数据库 ｜ 防治知识库 ｜ 地理与物候库 ｜ 用户反馈样本库</div>
+</div>
+
+<div class="two">
+  <div class="panel">
+    <h4>AI 识别模型管线</h4>
+    <ul>
+      <li>OpenCV 预处理：颜色空间转换、光照校正、去噪、叶片与病斑分割</li>
+      <li>轻量主干：MobileNetV3 / EfficientNet-Lite，YOLO-nano 辅助检测</li>
+      <li>INT8 量化压缩 + 置信度双阈值判定</li>
+      <li>训练数据：公开数据集 + 植保机构合作 + 试点众包回流标注</li>
+    </ul>
+  </div>
+  <div class="panel">
+    <h4>农业机械协同（空地一体）</h4>
+    <ul>
+      <li>无人机低空巡检，可见光 / 多光谱相机批量采集</li>
+      <li>机载端 OpenCV 拼接、几何校正、光照归一化</li>
+      <li>轻量模型批量识别 → 发病区域定位 → 变量施药处方图</li>
+      <li>对接飞防组织，实现巡检与精准施药闭环</li>
+    </ul>
+  </div>
+</div>
+
+<div class="kv">
+  <b>防治知识库</b>：中国农药信息网登记数据库、《农药管理条例》、全国农技中心年度防治技术方案（权威数据源）<br>
+  <b>结构化口径</b>：作物 × 病虫害 → 推荐药剂 → 用法用量 → 安全间隔期 → 注意事项，初期 ≥400 条
+</div>
+<div class="chain">
+  <span class="node">拍照</span><span class="che">→</span>
+  <span class="node">OpenCV 预处理</span><span class="che">→</span>
+  <span class="node">轻量模型推理</span><span class="che">→</span>
+  <span class="node alt">置信度双阈值</span><span class="che">→</span>
+  <span class="node">方案匹配</span><span class="che">→</span>
+  <span class="node alt">人工复核兜底</span>
+</div>
+
+<div class="foot">总体架构与模型路线依据正文（三）技术路线；防治知识库数据源为官方登记与全国农技中心防治技术方案。</div>
+</div></body></html>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    XML 方式六个方法，namespace 与接口 com.chapter02.ProductMapper 全限定名一致。
+    表：product（非 user 表）
+-->
+<mapper namespace="com.chapter02.ProductMapper">
+
+    <!-- 结果映射：把下划线列名映射到实体属性 -->
+    <resultMap id="productMap" type="com.entity.Product">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="price" column="price"/>
+        <result property="stock" column="stock"/>
+        <result property="category" column="category"/>
+        <result property="created_at" column="created_at"/>
+        <result property="updated_at" column="updated_at"/>
+    </resultMap>
+
+    <!-- 1. 查全部 -->
+    <select id="findAll" resultMap="productMap">
+        SELECT * FROM product
+    </select>
+
+    <!-- 2. 按 ID 查 -->
+    <select id="findById" parameterType="int" resultMap="productMap">
+        SELECT * FROM product WHERE id = #{id}
+    </select>
+
+    <!-- 3. 新增 + 自增主键回填
+         useGeneratedKeys="true" + keyProperty="id" 会把数据库生成的 id 写回入参对象 -->
+    <insert id="insert" parameterType="com.entity.Product"
+            useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO product(name, price, stock, category)
+        VALUES(#{name}, #{price}, #{stock}, #{category})
+    </insert>
+
+    <!-- 4. 修改 -->
+    <update id="update" parameterType="com.entity.Product">
+        UPDATE product
+        SET name     = #{name},
+            price    = #{price},
+            stock    = #{stock},
+            category = #{category}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 5. 删除 -->
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM product WHERE id = #{id}
+    </delete>
+
+    <!-- 6. 模糊查询：name 或 category 中包含关键字 -->
+    <select id="findByKeyword" parameterType="string" resultMap="productMap">
+        SELECT * FROM product
+        WHERE name LIKE CONCAT('%', #{keyword}, '%')
+           OR category LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
+</mapper>

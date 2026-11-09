@@ -1,0 +1,24 @@
+<Huawei>sys
+[Huawei]undo info-center enable 
+[Huawei]sysname R1
+[R1]interface g0/0/1
+[R1-GigabitEthernet0/0/1]ip address 172.16.1.1 24
+[R1-GigabitEthernet0/0/1]quit
+[R1]interface g0/0/2
+[R1-GigabitEthernet0/0/2]ip address 172.16.2.1 24
+[R1-GigabitEthernet0/0/2]quit
+
+[R1]interface loopback 0
+[R1-LoopBack0]ip address 1.1.1.1 32
+[R1-LoopBack0]quit
+[R1]ospf 1 router-id 1.1.1.1
+[R1-ospf-1]area 0
+[R1-ospf-1-area-0.0.0.0]network 172.16.1.0 0.0.0.255
+[R1-ospf-1-area-0.0.0.0]network 172.16.2.0 0.0.0.255
+[R1-ospf-1-area-0.0.0.0]network 1.1.1.1 0.0.0.0
+[R1-ospf-1-area-0.0.0.0]quit
+[R1-ospf-1]quit
+[R1]ip route-static 0.0.0.0 0.0.0.0 g0/0/0
+[R1]quit
+<R1>save
+
